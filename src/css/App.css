@@ -49,6 +49,9 @@ a:hover {
 
 body {
   background-color: var(--darkBackground);
+  min-height: 50vh;
+  color: #f9f9f9;
+  text-align: center;
 }
 
 .App-link {
@@ -93,10 +96,28 @@ body {
   background-color: white;
 }
 
-.footerLogos:hover>svg {
-  color:var(--greyBackground)!important;
+.footerLogos:hover > svg {
+  color: var(--greyBackground) !important;
 }
 
 .footerList li {
   margin-bottom: 5px;
+}
+
+.button-logos {
+  color: var(--greyBackground);
+  padding: 8px 10px 8px 10px;
+  border-radius: 10px;
+  background: #f2f3f5;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.button-logos:hover {
+  color: white;
+  background-color: var(--primary);
+}
+
+.button-logos:hover>svg {
+  color:white!important;
 }
