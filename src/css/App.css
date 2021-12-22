@@ -48,7 +48,7 @@ a:hover {
 }
 
 body {
-  background-color: #282c34;
+  background-color: var(--darkBackground);
 }
 
 .App-link {
@@ -73,10 +73,10 @@ body {
 --------------------------------------------------------------*/
 
 #footer {
-  background-color: #3d4148;
+  background-color: var(--greyBackground);
   min-height: 20vh;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 20px;
   color: #f9f9f9;
 }
 
