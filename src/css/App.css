@@ -44,7 +44,12 @@ a:hover {
 
 .wrapper {
   min-height: 80vh;
-  padding-block: 40px;
+  padding-bottom: 40px;
+  padding-top: 10px
+}
+
+.section {
+  padding-block: 20px;
 }
 
 body {
