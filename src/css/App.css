@@ -1,7 +1,7 @@
 :root {
-  --primary: #7B26AD;
-  --teal: #269BAD;
-  --teal2: #34BDD2;
+  --primary: #7b26ad;
+  --teal: #269bad;
+  --teal2: #34bdd2;
   --darkBackground: #282c34;
   --greyBackground: #3d4148;
 }
@@ -24,22 +24,34 @@
 }
 
 a {
-  color:var(--teal);
+  color: var(--teal);
+  text-decoration: none;
 }
 
 a:hover {
   color: var(--teal2);
+  text-decoration: underline;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.wrapper {
+  min-height: 80vh;
+  padding-block: 40px;
+}
+
+body {
+  background-color: var(--darkBackground);
+  min-height: 50vh;
+  color: #f9f9f9;
+  text-align: center;
 }
 
 .App-link {
@@ -57,4 +69,55 @@ a:hover {
   to {
     transform: rotate(360deg);
   }
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+
+#footer {
+  background-color: var(--greyBackground);
+  min-height: 20vh;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  color: #f9f9f9;
+}
+
+.footerLogos {
+  color: #f2f3f5 !important;
+  background: var(--darkBackground);
+  padding: 6px 8px;
+  margin-right: 8px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+.footerLogos:hover {
+  background-color: white;
+}
+
+.footerLogos:hover > svg {
+  color: var(--greyBackground) !important;
+}
+
+.footerList li {
+  margin-bottom: 5px;
+}
+
+/*--------------------------------------------------------------
+# NavBar
+--------------------------------------------------------------*/
+
+.bg-grey {
+  border-bottom: 1px solid var(--darkBackground);
+  background-color: var(--greyBackground) !important; 
+}
+
+.nav-item {
+  padding: .5rem 1rem;
+}
+
+.navbar-dark .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-item {
+  color: white;
 }
