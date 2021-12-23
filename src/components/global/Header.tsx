@@ -5,11 +5,11 @@ export default function Header() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="grey" variant='dark' sticky="top">
       <Container>
-        <Navbar.Brand href="#home">Nathan James</Navbar.Brand>
+        <Navbar.Brand href="/">Nathan James</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#unixTimeStamp">Unix TimeStamp</Nav.Link>
+            <Nav.Link href="#unix-timestamp">Unix TimeStamp</Nav.Link>
             <Nav.Item className="text-muted">Map [WIP]</Nav.Item>
           </Nav>
           <Nav>
