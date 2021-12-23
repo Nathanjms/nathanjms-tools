@@ -104,20 +104,20 @@ body {
   margin-bottom: 5px;
 }
 
-.button-logos {
-  color: var(--greyBackground);
-  padding: 8px 10px 8px 10px;
-  border-radius: 10px;
-  background: #f2f3f5;
-  margin-left: 10px;
-  margin-right: 10px;
+/*--------------------------------------------------------------
+# NavBar
+--------------------------------------------------------------*/
+
+.bg-grey {
+  border-bottom: 1px solid var(--darkBackground);
+  background-color: var(--greyBackground) !important; 
 }
 
-.button-logos:hover {
+.nav-item {
+  padding: .5rem 1rem;
+}
+
+.navbar-dark .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-item {
   color: white;
-  background-color: var(--primary);
-}
-
-.button-logos:hover>svg {
-  color:white!important;
 }

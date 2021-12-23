@@ -1,12 +1,13 @@
 import React from "react";
 import "../css/App.css";
-import { FaSpinner } from "react-icons/fa";
 import Footer from "./global/Footer";
+import Header from "./global/Header";
 import Home from "./main/Home";
 
 function App() {
   return (
     <React.Fragment>
+      <Header />
       <div className="wrapper">
         <Home />
       </div>
