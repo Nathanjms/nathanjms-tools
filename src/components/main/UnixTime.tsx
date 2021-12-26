@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import UnixToDate from "./unixtime/UnixToDate";
 
 interface Props {}
 
@@ -7,8 +8,8 @@ const UnixTime: React.FC<Props> = () => {
   const [date, setDate] = useState<any>(0);
   const [unixTime, setUnixTime] = useState<number>(0);
   const [inputValues, setInputValues] = useState<{ [x: string]: string }>();
-  const [changeDate, setChangeDate] = useState<boolean>(false)
-  const [changeDateTime, setChangeDateTime] = useState<boolean>(true)
+  const [changeDate, setChangeDate] = useState<boolean>(false);
+  const [changeDateTime, setChangeDateTime] = useState<boolean>(true);
 
   useEffect(() => {
     setDate(new Date());
@@ -18,9 +19,9 @@ const UnixTime: React.FC<Props> = () => {
     if (date === 0) return;
 
     // if (!changeDateTime) {
-      //   return;
-      // }
-        console.log(date)
+    //   return;
+    // }
+    console.log(date);
 
     setUnixTime(Math.floor(date / 1000));
     setChangeDate(false);
@@ -35,14 +36,16 @@ const UnixTime: React.FC<Props> = () => {
     //   console.log('dont change dtae!')
     //   return;
     // }
-    setDate(new Date(
-      Number(inputValues.year),
-      Number(inputValues.month) - 1,
-      Number(inputValues.day),
-      Number(inputValues.hour),
-      Number(inputValues.minute),
-      Number(inputValues.second)
-    ));
+    setDate(
+      new Date(
+        Number(inputValues.year),
+        Number(inputValues.month) - 1,
+        Number(inputValues.day),
+        Number(inputValues.hour),
+        Number(inputValues.minute),
+        Number(inputValues.second)
+      )
+    );
     setChangeDateTime(false);
     // setUnixTime(Math.floor(date / 1000));
     // console.log(date.getFullYear().toString());
@@ -172,6 +175,7 @@ const UnixTime: React.FC<Props> = () => {
           />
         </Col>
       </Row>
+      <UnixToDate />
     </Container>
   );
 };
