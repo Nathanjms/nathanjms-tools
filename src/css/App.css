@@ -1,5 +1,6 @@
 :root {
-  --primary: #7b26ad;
+  --primary: rgb(123, 38, 173);
+  --primaryLight: rgb(150, 98, 181);
   --teal: #269bad;
   --teal2: #34bdd2;
   --darkBackground: #282c34;
@@ -16,11 +17,17 @@
   color: #fff;
 }
 
+.btn-primary {
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
 .btn-primary:hover,
 .btn-primary:active,
-.btn-primary:focus {
-  background-color: var(--teal);
-  border: 1px solid var(--teal);
+.btn-primary:focus,
+.btn-primary:disabled {
+  background-color: var(--primaryLight);
+  border: 1px solid var(--primaryLight);
 }
 
 a {
@@ -45,7 +52,7 @@ a:hover {
 .wrapper {
   min-height: 80vh;
   padding-bottom: 40px;
-  padding-top: 10px
+  padding-top: 10px;
 }
 
 .section {
@@ -115,14 +122,39 @@ body {
 
 .bg-grey {
   border-bottom: 1px solid var(--darkBackground);
-  background-color: var(--greyBackground) !important; 
+  background-color: var(--greyBackground) !important;
 }
 
 .nav-item {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .navbar-dark .navbar-nav .nav-link,
 .navbar-dark .navbar-nav .nav-item {
   color: white;
+}
+
+/*--------------------------------------------------------------
+# Main Content
+--------------------------------------------------------------*/
+
+.add-sub-btns-container {
+  padding: 10px;
+  background-color: var(--darkBackground);
+  margin-inline: auto;
+  border-radius: 5px;
+}
+
+.add-sub-btns-container .btn {
+  margin-block: 5px;
+  min-width: 73px;
+  width: 100%;
+}
+
+.grey-card {
+  padding: 20px;
+  background-color: var(--greyBackground);
+  border-radius: 5px;
+  margin-inline: auto;
+  width: 95%;
 }
