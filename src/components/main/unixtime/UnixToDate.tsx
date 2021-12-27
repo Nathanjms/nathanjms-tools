@@ -6,7 +6,12 @@ import {
   OverlayTrigger,
   Tooltip,
   Button,
+  InputGroup,
+  FormControl,
 } from "react-bootstrap";
+import toast, { Toaster } from "react-hot-toast";
+import { FaCopy } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 interface Props {}
 
@@ -28,7 +33,7 @@ const UnixToDate: React.FC<Props> = () => {
     setDate(new Date(Number(e.currentTarget.value) * 1000));
   };
 
-  const addOrSubtract = (a: number, b: number) => {
+  const addOrSubtract = (a: number, b: number): number => {
     if (addTime) {
       return a + b;
     }
@@ -69,39 +74,90 @@ const UnixToDate: React.FC<Props> = () => {
     }
   };
 
-  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     if (e.target.value === "custom") {
-      return handleCustomYearChange();
+      return handleCustomQuantityChange();
     }
     setQuantityToAdd(Number(e.target.value));
   };
 
-  const handleCustomYearChange = () => {
-    // TODO:
-    // 1. Sweet alert form
-    // 2. On submit:
-    //    a. Change `quantityToAdd` variable
-    //    b. reset dropdown with new value as selected (so switch of custom).
+  const handleCustomQuantityChange = (): void => {
+    Swal.fire({
+      title: "Enter custom amount",
+      input: "number",
+      inputLabel: `The amount to be ${getAddSubtractWording()}ed`,
+      inputValue: "",
+      showCancelButton: true,
+      inputValidator: (result) => {
+        if (!result || Number(result) <= 0) {
+          return "Please enter a positive integer!";
+        }
+        return null;
+      },
+    }).then((result) => {
+      if (result?.isConfirmed) {
+        addNewOptionToQuantityDropdown(result.value);
+        setQuantityToAdd(Number(result.value));
+        return;
+      }
+    });
+  };
+
+  const addNewOptionToQuantityDropdown = (newValue: string): void => {
+    let dropdown = document.getElementById(
+      "changeDropdown"
+    ) as HTMLSelectElement;
+
+    let op = new Option();
+    op.value = newValue;
+    op.text = newValue + " (Custom)";
+    dropdown.options.add(op);
   };
 
   const getAddSubtractWording = () => {
     return addTime ? "Add" : "Subtract";
   };
 
+  const handleCopyToClipboard = (e: React.MouseEvent<HTMLButtonElement>) => {
+    let btn = e.currentTarget as HTMLButtonElement;
+    let copyText = document.getElementById("unixTimeInput") as HTMLInputElement;
+
+    btn.disabled = true;
+    navigator.clipboard.writeText(copyText.value);
+
+    toast.success("Copied!", {
+      style: {
+        background: "#363636",
+        color: "#fff",
+      },
+    });
+
+    setTimeout(() => {
+      btn.disabled = false;
+    }, 3000);
+  };
+
   return (
     <>
+      <Toaster position="top-right" />
       <Row>
         <h2>Unix Timestamp</h2>
       </Row>
       <Row>
         <Col>
           <p>The Current Unix Timestamp is:</p>
-          <input
-            type="number"
-            className="form-control"
-            value={String(unixTime)}
-            onChange={handleCurrentTimestampChange}
-          />
+          <InputGroup className="mb-3">
+            <input
+              id="unixTimeInput"
+              type="number"
+              className="form-control"
+              value={String(unixTime)}
+              onChange={handleCurrentTimestampChange}
+            />
+            <Button id="copyToClipboard" onClick={handleCopyToClipboard}>
+              <FaCopy />
+            </Button>
+          </InputGroup>
         </Col>
       </Row>
       <Row className="mt-2">
@@ -130,10 +186,11 @@ const UnixToDate: React.FC<Props> = () => {
               </OverlayTrigger>{" "}
               <span style={{ display: "inline-block" }}>
                 <Form.Select
-                  onChange={(e) => handleYearChange(e)}
+                  onChange={(e) => handleQuantityChange(e)}
                   size="sm"
                   aria-label="Default select example"
-                  defaultValue={1}
+                  value={quantityToAdd}
+                  id="changeDropdown"
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>

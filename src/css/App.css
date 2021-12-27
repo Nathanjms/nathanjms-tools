@@ -24,7 +24,8 @@
 
 .btn-primary:hover,
 .btn-primary:active,
-.btn-primary:focus {
+.btn-primary:focus,
+.btn-primary:disabled {
   background-color: var(--primaryLight);
   border: 1px solid var(--primaryLight);
 }
