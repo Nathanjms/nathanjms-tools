@@ -23,7 +23,7 @@ const UnixToDate: React.FC<Props> = () => {
 
   useEffect(() => {
     setUnixTime(Math.floor(date / 1000));
-    setEnglishDate(date.toString());
+    setEnglishDate(date.toLocaleString());
   }, [date]);
 
   const handleCurrentTimestampChange = (
@@ -136,26 +136,6 @@ const UnixToDate: React.FC<Props> = () => {
     setTimeout(() => {
       btn.disabled = false;
     }, 3000);
-  };
-
-  const padTo2Digits = (num: number): string => {
-    return num.toString().padStart(2, "0");
-  };
-
-  const formatUkDate = (date: Date): string => {
-    return (
-      padTo2Digits(date.getDate()) +
-      "/" +
-      padTo2Digits(date.getMonth() + 1) +
-      "/" +
-      date.getFullYear() +
-      " " +
-      padTo2Digits(date.getHours()) +
-      ":" +
-      padTo2Digits(date.getMinutes()) +
-      ":" +
-      padTo2Digits(date.getSeconds())
-    );
   };
 
   return (
