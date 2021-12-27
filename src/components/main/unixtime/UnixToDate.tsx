@@ -105,92 +105,92 @@ const UnixToDate: React.FC<Props> = () => {
         </Col>
       </Row>
       <Row className="mt-2">
-        <Col sm={6}>
-          <p>English date:</p>
-          <p>{englishDate}</p>
+        <Col sm={6} className="my-3">
+          <div className="grey-card h-100">
+            <p>English date:</p>
+            <p>{englishDate}</p>
+          </div>
         </Col>
-        <Col sm={6}>
-          <h4>
-            I want to{" "}
-            <OverlayTrigger
-              overlay={
-                <Tooltip>
-                  Toggle Adding/Subtracting.
-                </Tooltip>
-              }
-            >
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={() => {
-                  setAddTime(!addTime);
-                }}
+        <Col sm={6} className="my-3">
+          <div className="grey-card">
+            <h4>
+              I want to{" "}
+              <OverlayTrigger
+                overlay={<Tooltip>Toggle Adding/Subtracting.</Tooltip>}
               >
-                {getAddSubtractWording()}...
-              </Button>
-            </OverlayTrigger>{" "}
-            <span style={{ display: "inline-block" }}>
-              <Form.Select
-                onChange={(e) => handleYearChange(e)}
-                size="sm"
-                aria-label="Default select example"
-                defaultValue={1}
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="4">4</option>
-                <option value="8">8</option>
-                <option value="custom">Custom</option>
-              </Form.Select>
-            </span>
-          </h4>
-          <Row className="justify-content-center add-sub-btns-container">
-            <Col xs={6} lg={4}>
-              <button
-                className="btn btn-primary"
-                onClick={handleUnixChange}
-                value="hour"
-              >
-                Hour
-              </button>
-            </Col>
-            <Col xs={6} lg={4}>
-              <button
-                className="btn btn-primary"
-                onClick={handleUnixChange}
-                value="day"
-              >
-                Day
-              </button>
-            </Col>
-            <Col xs={6} lg={4}>
-              <button
-                className="btn btn-primary"
-                onClick={handleUnixChange}
-                value="week"
-              >
-                Week
-              </button>
-            </Col>
-            <Col xs={6} lg={6}>
-              <button
-                className="btn btn-primary"
-                onClick={handleUnixChange}
-                value="month"
-              >
-                Month
-              </button>
-            </Col>
-            <Col xs={12} lg={6}>
-              <button
-                className="btn btn-primary"
-                onClick={handleUnixChange}
-                value="year"
-              >
-                Year
-              </button>
-            </Col>
-          </Row>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => {
+                    setAddTime(!addTime);
+                  }}
+                >
+                  {getAddSubtractWording()}...
+                </Button>
+              </OverlayTrigger>{" "}
+              <span style={{ display: "inline-block" }}>
+                <Form.Select
+                  onChange={(e) => handleYearChange(e)}
+                  size="sm"
+                  aria-label="Default select example"
+                  defaultValue={1}
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="4">4</option>
+                  <option value="8">8</option>
+                  <option value="custom">Custom</option>
+                </Form.Select>
+              </span>
+            </h4>
+            <Row className="justify-content-center add-sub-btns-container">
+              <Col xs={6} lg={4}>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleUnixChange}
+                  value="hour"
+                >
+                  Hour
+                </button>
+              </Col>
+              <Col xs={6} lg={4}>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleUnixChange}
+                  value="day"
+                >
+                  Day
+                </button>
+              </Col>
+              <Col xs={6} lg={4}>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleUnixChange}
+                  value="week"
+                >
+                  Week
+                </button>
+              </Col>
+              <Col xs={6} lg={6}>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleUnixChange}
+                  value="month"
+                >
+                  Month
+                </button>
+              </Col>
+              <Col xs={12} lg={6}>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleUnixChange}
+                  value="year"
+                >
+                  Year
+                </button>
+              </Col>
+            </Row>
+          </div>
         </Col>
       </Row>
     </>

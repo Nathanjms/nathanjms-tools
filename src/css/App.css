@@ -137,19 +137,16 @@ body {
 # Main Content
 --------------------------------------------------------------*/
 
-/* .add-sub-btns-container {
-  display: flex;
-  justify-content: center;
-}
-
-@media (max-width: 800px) {
-  .add-sub-btns-container {
-    flex-direction: column;
-  }
-} */
-
 .add-sub-btns-container .btn {
   margin-block: 5px;
   min-width: 73px;
   width: 100%;
+}
+
+.grey-card {
+	padding: 20px;
+	background-color: var(--greyBackground);
+	border-radius: 5px;
+	margin-inline: auto;
+	width: 95%;
 }
