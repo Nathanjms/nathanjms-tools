@@ -161,7 +161,7 @@ const UnixToDate: React.FC<Props> = () => {
         <Col sm={6} className="my-3">
           <div className="grey-card h-100">
             <h5>UK Date:</h5>
-            <p>{date.toLocaleString('en-UK')}</p>
+            <p>{date.toLocaleString('en-GB')}</p>
             <h5>Long Date:</h5>
             <p>{date.toString()}</p>
           </div>
