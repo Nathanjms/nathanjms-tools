@@ -45,7 +45,7 @@ a:hover {
 .wrapper {
   min-height: 80vh;
   padding-bottom: 40px;
-  padding-top: 10px
+  padding-top: 10px;
 }
 
 .section {
@@ -115,14 +115,23 @@ body {
 
 .bg-grey {
   border-bottom: 1px solid var(--darkBackground);
-  background-color: var(--greyBackground) !important; 
+  background-color: var(--greyBackground) !important;
 }
 
 .nav-item {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .navbar-dark .navbar-nav .nav-link,
 .navbar-dark .navbar-nav .nav-item {
   color: white;
+}
+
+/*--------------------------------------------------------------
+# Main Content
+--------------------------------------------------------------*/
+
+.add-sub-btns-container {
+  display: flex;
+  justify-content: space-between;
 }
