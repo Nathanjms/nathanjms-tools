@@ -13,8 +13,6 @@ const UnixToDate: React.FC<Props> = () => {
     setUnixTime(Math.floor(date / 1000));
   }, []);
 
-  useEffect(() => {}, [unixTime]);
-
   useEffect(() => {
     setEnglishDate(date.toString());
     setUnixTime(Math.floor(date / 1000));
