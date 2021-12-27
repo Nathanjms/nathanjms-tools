@@ -10,10 +10,6 @@ const UnixToDate: React.FC<Props> = () => {
   const [addTime, setAddTime] = useState<boolean>(false); // True to add, false to subtract
 
   useEffect(() => {
-    setUnixTime(Math.floor(date / 1000));
-  }, []);
-
-  useEffect(() => {
     setEnglishDate(date.toString());
     setUnixTime(Math.floor(date / 1000));
   }, [date]);
