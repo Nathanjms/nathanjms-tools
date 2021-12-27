@@ -184,7 +184,7 @@ const UnixToDate: React.FC<Props> = () => {
                     onClick={() => {
                       setAddTime(!addTime);
                     }}
-                    style={{ minWidth: "86px" }}
+                    style={{ width: "100%" }}
                   >
                     {getAddSubtractWording()}...
                   </Button>
