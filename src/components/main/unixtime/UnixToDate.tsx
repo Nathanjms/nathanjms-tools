@@ -15,13 +15,11 @@ interface Props {}
 const UnixToDate: React.FC<Props> = () => {
   const [date, setDate] = useState<any>(new Date());
   const [unixTime, setUnixTime] = useState<number>(0);
-  const [englishDate, setEnglishDate] = useState<string>("");
   const [addTime, setAddTime] = useState<boolean>(false); // True to add, false to subtract
   const [quantityToAdd, setQuantityToAdd] = useState<number>(1);
 
   useEffect(() => {
     setUnixTime(Math.floor(date / 1000));
-    setEnglishDate(date.toString());
   }, [date]);
 
   const handleCurrentTimestampChange = (
@@ -162,10 +160,10 @@ const UnixToDate: React.FC<Props> = () => {
       <Row className="mt-2">
         <Col sm={6} className="my-3">
           <div className="grey-card h-100">
-            <h5>Short:</h5>
-            <p>{date.toLocaleString()}</p>
-            <h5>Long:</h5>
-            <p>{englishDate}</p>
+            <h5>UK Date:</h5>
+            <p>{date.toLocaleString('en-UK')}</p>
+            <h5>Long Date:</h5>
+            <p>{date.toString()}</p>
           </div>
         </Col>
         <Col sm={6} className="my-3">
