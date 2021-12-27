@@ -3,8 +3,6 @@ import {
   Col,
   Row,
   Form,
-  OverlayTrigger,
-  Tooltip,
   Button,
   InputGroup,
 } from "react-bootstrap";
