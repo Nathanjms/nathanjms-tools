@@ -174,23 +174,19 @@ const UnixToDate: React.FC<Props> = () => {
           <div className="grey-card">
             <h4>I want to...</h4>
             <Row className="mb-3">
-              <Col xs={4}>
-                <OverlayTrigger
-                  overlay={<Tooltip>Toggle Adding/Subtracting.</Tooltip>}
+              <Col xs={6}>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => {
+                    setAddTime(!addTime);
+                  }}
+                  style={{ minWidth: "100%", wordWrap: "break-word" }}
                 >
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    onClick={() => {
-                      setAddTime(!addTime);
-                    }}
-                    style={{ width: "100%" }}
-                  >
-                    {getAddSubtractWording()}...
-                  </Button>
-                </OverlayTrigger>{" "}
+                  {getAddSubtractWording()}
+                </Button>
               </Col>
-              <Col xs={8}>
+              <Col xs={6}>
                 <Form.Select
                   onChange={(e) => handleQuantityChange(e)}
                   size="sm"
