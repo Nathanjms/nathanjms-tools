@@ -138,6 +138,13 @@ body {
 # Main Content
 --------------------------------------------------------------*/
 
+.add-sub-btns-container {
+  padding: 10px;
+  background-color: var(--darkBackground);
+  margin-inline: auto;
+  border-radius: 5px;
+}
+
 .add-sub-btns-container .btn {
   margin-block: 5px;
   min-width: 73px;
@@ -145,9 +152,9 @@ body {
 }
 
 .grey-card {
-	padding: 20px;
-	background-color: var(--greyBackground);
-	border-radius: 5px;
-	margin-inline: auto;
-	width: 95%;
+  padding: 20px;
+  background-color: var(--greyBackground);
+  border-radius: 5px;
+  margin-inline: auto;
+  width: 95%;
 }

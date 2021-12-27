@@ -7,7 +7,6 @@ import {
   Tooltip,
   Button,
   InputGroup,
-  FormControl,
 } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 import { FaCopy } from "react-icons/fa";
@@ -74,7 +73,9 @@ const UnixToDate: React.FC<Props> = () => {
     }
   };
 
-  const handleQuantityChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+  const handleQuantityChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
     if (e.target.value === "custom") {
       return handleCustomQuantityChange();
     }
@@ -137,6 +138,26 @@ const UnixToDate: React.FC<Props> = () => {
     }, 3000);
   };
 
+  const padTo2Digits = (num: number): string => {
+    return num.toString().padStart(2, "0");
+  };
+
+  const formatUkDate = (date: Date): string => {
+    return (
+      padTo2Digits(date.getDate()) +
+      "/" +
+      padTo2Digits(date.getMonth() + 1) +
+      "/" +
+      date.getFullYear() +
+      " " +
+      padTo2Digits(date.getHours()) +
+      ":" +
+      padTo2Digits(date.getMinutes()) +
+      ":" +
+      padTo2Digits(date.getSeconds())
+    );
+  };
+
   return (
     <>
       <Toaster position="top-right" />
@@ -163,28 +184,31 @@ const UnixToDate: React.FC<Props> = () => {
       <Row className="mt-2">
         <Col sm={6} className="my-3">
           <div className="grey-card h-100">
+            <p>{formatUkDate(date)}</p>
             <p>{englishDate}</p>
           </div>
         </Col>
         <Col sm={6} className="my-3">
           <div className="grey-card">
-            <h4>
-              I want to{" "}
-              <OverlayTrigger
-                overlay={<Tooltip>Toggle Adding/Subtracting.</Tooltip>}
-              >
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={() => {
-                    setAddTime(!addTime);
-                  }}
-                  style={{ minWidth: "86px" }}
+            <h4>I want to...</h4>
+            <Row className="mb-3">
+              <Col xs={4}>
+                <OverlayTrigger
+                  overlay={<Tooltip>Toggle Adding/Subtracting.</Tooltip>}
                 >
-                  {getAddSubtractWording()}...
-                </Button>
-              </OverlayTrigger>{" "}
-              <span style={{ display: "inline-block" }}>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => {
+                      setAddTime(!addTime);
+                    }}
+                    style={{ minWidth: "86px" }}
+                  >
+                    {getAddSubtractWording()}...
+                  </Button>
+                </OverlayTrigger>{" "}
+              </Col>
+              <Col xs={8}>
                 <Form.Select
                   onChange={(e) => handleQuantityChange(e)}
                   size="sm"
@@ -198,8 +222,8 @@ const UnixToDate: React.FC<Props> = () => {
                   <option value="8">8</option>
                   <option value="custom">Custom</option>
                 </Form.Select>
-              </span>
-            </h4>
+              </Col>
+            </Row>
             <Row className="justify-content-center add-sub-btns-container">
               <Col xs={6} lg={4}>
                 <button
