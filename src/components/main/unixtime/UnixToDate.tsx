@@ -23,7 +23,7 @@ const UnixToDate: React.FC<Props> = () => {
 
   useEffect(() => {
     setUnixTime(Math.floor(date / 1000));
-    setEnglishDate(date.toLocaleString());
+    setEnglishDate(date.toString());
   }, [date]);
 
   const handleCurrentTimestampChange = (
@@ -164,7 +164,9 @@ const UnixToDate: React.FC<Props> = () => {
       <Row className="mt-2">
         <Col sm={6} className="my-3">
           <div className="grey-card h-100">
-            <p>{formatUkDate(date)}</p>
+            <h5>Short:</h5>
+            <p>{date.toLocaleString()}</p>
+            <h5>Long:</h5>
             <p>{englishDate}</p>
           </div>
         </Col>
