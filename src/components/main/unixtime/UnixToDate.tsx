@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Col,
-  Row,
-  Form,
-  Button,
-  InputGroup,
-} from "react-bootstrap";
+import { Col, Row, Form, Button, InputGroup } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 import { FaCopy } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -64,6 +58,12 @@ const UnixToDate: React.FC<Props> = () => {
     if (e.currentTarget.value === "hour") {
       newDate = new Date(
         date.setHours(addOrSubtract(date.getHours(), quantityToAdd))
+      );
+      return setDate(newDate);
+    }
+    if (e.currentTarget.value === "minute") {
+      newDate = new Date(
+        date.setMinutes(addOrSubtract(date.getMinutes(), quantityToAdd))
       );
       return setDate(newDate);
     }
@@ -161,7 +161,7 @@ const UnixToDate: React.FC<Props> = () => {
         <Col sm={6} className="my-3">
           <div className="grey-card h-100">
             <h5>UK Date:</h5>
-            <p>{date.toLocaleString('en-GB')}</p>
+            <p>{date.toLocaleString("en-GB")}</p>
             <h5>Long Date:</h5>
             <p>{date.toString()}</p>
           </div>
@@ -203,6 +203,15 @@ const UnixToDate: React.FC<Props> = () => {
                 <button
                   className="btn btn-primary"
                   onClick={handleUnixChange}
+                  value="minute"
+                >
+                  Minute
+                </button>
+              </Col>
+              <Col xs={6} lg={4}>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleUnixChange}
                   value="hour"
                 >
                   Hour
@@ -226,7 +235,7 @@ const UnixToDate: React.FC<Props> = () => {
                   Week
                 </button>
               </Col>
-              <Col xs={6} lg={6}>
+              <Col xs={6} lg={4}>
                 <button
                   className="btn btn-primary"
                   onClick={handleUnixChange}
@@ -235,7 +244,7 @@ const UnixToDate: React.FC<Props> = () => {
                   Month
                 </button>
               </Col>
-              <Col xs={12} lg={6}>
+              <Col xs={6} lg={4}>
                 <button
                   className="btn btn-primary"
                   onClick={handleUnixChange}
