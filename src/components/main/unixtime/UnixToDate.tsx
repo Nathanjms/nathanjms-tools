@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import {
+  Col,
+  Row,
+  Form,
+  OverlayTrigger,
+  Tooltip,
+  Button,
+} from "react-bootstrap";
 
 interface Props {}
 
@@ -8,10 +15,11 @@ const UnixToDate: React.FC<Props> = () => {
   const [unixTime, setUnixTime] = useState<number>(0);
   const [englishDate, setEnglishDate] = useState<string>("");
   const [addTime, setAddTime] = useState<boolean>(false); // True to add, false to subtract
+  const [quantityToAdd, setQuantityToAdd] = useState<number>(1);
 
   useEffect(() => {
-    setEnglishDate(date.toString());
     setUnixTime(Math.floor(date / 1000));
+    setEnglishDate(date.toString());
   }, [date]);
 
   const handleCurrentTimestampChange = (
@@ -31,26 +39,49 @@ const UnixToDate: React.FC<Props> = () => {
     var newDate;
     if (e.currentTarget.value === "year") {
       newDate = new Date(
-        date.setFullYear(addOrSubtract(date.getFullYear(), 1))
+        date.setFullYear(addOrSubtract(date.getFullYear(), quantityToAdd))
       );
       return setDate(newDate);
     }
     if (e.currentTarget.value === "month") {
-      newDate = new Date(date.setMonth(addOrSubtract(date.getMonth(), 1)));
+      newDate = new Date(
+        date.setMonth(addOrSubtract(date.getMonth(), quantityToAdd))
+      );
       return setDate(newDate);
     }
     if (e.currentTarget.value === "week") {
-      newDate = new Date(date.setDate(addOrSubtract(date.getDate(), 7)));
+      newDate = new Date(
+        date.setDate(addOrSubtract(date.getDate(), 7 * quantityToAdd))
+      );
       return setDate(newDate);
     }
     if (e.currentTarget.value === "day") {
-      newDate = new Date(date.setDate(addOrSubtract(date.getDate(), 1)));
+      newDate = new Date(
+        date.setDate(addOrSubtract(date.getDate(), quantityToAdd))
+      );
       return setDate(newDate);
     }
     if (e.currentTarget.value === "hour") {
-      newDate = new Date(date.setHours(addOrSubtract(date.getHours(), 1)));
+      newDate = new Date(
+        date.setHours(addOrSubtract(date.getHours(), quantityToAdd))
+      );
       return setDate(newDate);
     }
+  };
+
+  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value === "custom") {
+      return handleCustomYearChange();
+    }
+    setQuantityToAdd(Number(e.target.value));
+  };
+
+  const handleCustomYearChange = () => {
+    // TODO:
+    // 1. Sweet alert form
+    // 2. On submit:
+    //    a. Change `quantityToAdd` variable
+    //    b. reset dropdown with new value as selected (so switch of custom).
   };
 
   const getAddSubtractWording = () => {
@@ -74,62 +105,92 @@ const UnixToDate: React.FC<Props> = () => {
         </Col>
       </Row>
       <Row className="mt-2">
-        <Col>
+        <Col sm={6}>
           <p>English date:</p>
           <p>{englishDate}</p>
         </Col>
-      </Row>
-      <Row className="mt-2">
-        <Col>
+        <Col sm={6}>
           <h4>
             I want to{" "}
-            <button
-              className="btn btn-primary btn-sm"
-              onClick={() => {
-                setAddTime(!addTime);
-              }}
+            <OverlayTrigger
+              overlay={
+                <Tooltip>
+                  Toggle Adding/Subtracting.
+                </Tooltip>
+              }
             >
-              {getAddSubtractWording()}...
-            </button>{" "}
-            a:
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={() => {
+                  setAddTime(!addTime);
+                }}
+              >
+                {getAddSubtractWording()}...
+              </Button>
+            </OverlayTrigger>{" "}
+            <span style={{ display: "inline-block" }}>
+              <Form.Select
+                onChange={(e) => handleYearChange(e)}
+                size="sm"
+                aria-label="Default select example"
+                defaultValue={1}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="8">8</option>
+                <option value="custom">Custom</option>
+              </Form.Select>
+            </span>
           </h4>
-          <div className="add-sub-btns-container">
-            <button
-              className="btn btn-primary"
-              onClick={handleUnixChange}
-              value="hour"
-            >
-              Hour
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={handleUnixChange}
-              value="day"
-            >
-              Day
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={handleUnixChange}
-              value="week"
-            >
-              Week
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={handleUnixChange}
-              value="month"
-            >
-              Month
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={handleUnixChange}
-              value="year"
-            >
-              Year
-            </button>
-          </div>
+          <Row className="justify-content-center add-sub-btns-container">
+            <Col xs={6} lg={4}>
+              <button
+                className="btn btn-primary"
+                onClick={handleUnixChange}
+                value="hour"
+              >
+                Hour
+              </button>
+            </Col>
+            <Col xs={6} lg={4}>
+              <button
+                className="btn btn-primary"
+                onClick={handleUnixChange}
+                value="day"
+              >
+                Day
+              </button>
+            </Col>
+            <Col xs={6} lg={4}>
+              <button
+                className="btn btn-primary"
+                onClick={handleUnixChange}
+                value="week"
+              >
+                Week
+              </button>
+            </Col>
+            <Col xs={6} lg={6}>
+              <button
+                className="btn btn-primary"
+                onClick={handleUnixChange}
+                value="month"
+              >
+                Month
+              </button>
+            </Col>
+            <Col xs={12} lg={6}>
+              <button
+                className="btn btn-primary"
+                onClick={handleUnixChange}
+                value="year"
+              >
+                Year
+              </button>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </>

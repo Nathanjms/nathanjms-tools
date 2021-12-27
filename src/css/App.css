@@ -1,5 +1,6 @@
 :root {
-  --primary: #7b26ad;
+  --primary: rgb(123, 38, 173);
+  --primaryLight: rgb(150, 98, 181);
   --teal: #269bad;
   --teal2: #34bdd2;
   --darkBackground: #282c34;
@@ -16,11 +17,16 @@
   color: #fff;
 }
 
+.btn-primary {
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
-  background-color: var(--teal);
-  border: 1px solid var(--teal);
+  background-color: var(--primaryLight);
+  border: 1px solid var(--primaryLight);
 }
 
 a {
@@ -131,7 +137,19 @@ body {
 # Main Content
 --------------------------------------------------------------*/
 
-.add-sub-btns-container {
+/* .add-sub-btns-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+@media (max-width: 800px) {
+  .add-sub-btns-container {
+    flex-direction: column;
+  }
+} */
+
+.add-sub-btns-container .btn {
+  margin-block: 5px;
+  min-width: 73px;
+  width: 100%;
 }
