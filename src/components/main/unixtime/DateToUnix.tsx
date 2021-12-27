@@ -30,6 +30,9 @@ const DateToUnix: React.FC<Props> = () => {
 
   return (
     <Row className="mt-4">
+      <Col xs={12}>
+        <h2>Date to Unix</h2>
+      </Col>
       <Col md={2}>
         <label className="form-label">Year</label>
         <input

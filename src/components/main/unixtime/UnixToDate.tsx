@@ -107,7 +107,6 @@ const UnixToDate: React.FC<Props> = () => {
       <Row className="mt-2">
         <Col sm={6} className="my-3">
           <div className="grey-card h-100">
-            <p>English date:</p>
             <p>{englishDate}</p>
           </div>
         </Col>
@@ -124,6 +123,7 @@ const UnixToDate: React.FC<Props> = () => {
                   onClick={() => {
                     setAddTime(!addTime);
                   }}
+                  style={{ minWidth: "86px" }}
                 >
                   {getAddSubtractWording()}...
                 </Button>
