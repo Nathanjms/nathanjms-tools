@@ -19,13 +19,13 @@ import Swal from "sweetalert2";
 interface Props {}
 
 const UnixToDate: React.FC<Props> = () => {
-  const [date, setDate] = useState<any>(new Date());
+  const [date, setDate] = useState<number | Date>(new Date());
   const [unixTime, setUnixTime] = useState<number>(0);
   const [addTime, setAddTime] = useState<boolean>(false); // True to add, false to subtract
   const [quantityToAdd, setQuantityToAdd] = useState<number>(1);
 
   useEffect(() => {
-    setUnixTime(Math.floor(date / 1000));
+    setUnixTime(Math.floor(Number(date) / 1000));
   }, [date]);
 
   const handleCurrentTimestampChange = (
