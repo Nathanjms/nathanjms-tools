@@ -1,3 +1,15 @@
+import {
+  addDays,
+  addHours,
+  addMinutes,
+  addMonths,
+  addYears,
+  subDays,
+  subHours,
+  subMinutes,
+  subMonths,
+  subYears,
+} from "date-fns";
 import React, { useEffect, useState } from "react";
 import { Col, Row, Form, Button, InputGroup } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
@@ -22,51 +34,42 @@ const UnixToDate: React.FC<Props> = () => {
     setDate(new Date(Number(e.currentTarget.value) * 1000));
   };
 
-  const addOrSubtract = (a: number, b: number): number => {
-    if (addTime) {
-      return a + b;
-    }
-    return a - b;
-  };
-
-  const handleUnixChange = (e: React.MouseEvent<HTMLButtonElement>) => {
-    var newDate;
+  const handleUnixChange = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    var newDate: Date | null = null;
     if (e.currentTarget.value === "year") {
-      newDate = new Date(
-        date.setFullYear(addOrSubtract(date.getFullYear(), quantityToAdd))
-      );
-      return setDate(newDate);
+      newDate = addTime
+        ? addYears(date, quantityToAdd)
+        : subYears(date, quantityToAdd);
     }
     if (e.currentTarget.value === "month") {
-      newDate = new Date(
-        date.setMonth(addOrSubtract(date.getMonth(), quantityToAdd))
-      );
-      return setDate(newDate);
+      newDate = addTime
+        ? addMonths(date, quantityToAdd)
+        : subMonths(date, quantityToAdd);
     }
     if (e.currentTarget.value === "week") {
-      newDate = new Date(
-        date.setDate(addOrSubtract(date.getDate(), 7 * quantityToAdd))
-      );
-      return setDate(newDate);
+      newDate = addTime
+        ? addDays(date, 7 * quantityToAdd)
+        : subDays(date, 7 * quantityToAdd);
     }
     if (e.currentTarget.value === "day") {
-      newDate = new Date(
-        date.setDate(addOrSubtract(date.getDate(), quantityToAdd))
-      );
-      return setDate(newDate);
+      newDate = addTime
+        ? addDays(date, quantityToAdd)
+        : subDays(date, quantityToAdd);
     }
     if (e.currentTarget.value === "hour") {
-      newDate = new Date(
-        date.setHours(addOrSubtract(date.getHours(), quantityToAdd))
-      );
-      return setDate(newDate);
+      newDate = addTime
+        ? addHours(date, quantityToAdd)
+        : subHours(date, quantityToAdd);
     }
     if (e.currentTarget.value === "minute") {
-      newDate = new Date(
-        date.setMinutes(addOrSubtract(date.getMinutes(), quantityToAdd))
-      );
-      return setDate(newDate);
+      newDate = addTime
+        ? addMinutes(date, quantityToAdd)
+        : subMinutes(date, quantityToAdd);
     }
+    
+    if (!newDate) return;
+
+    return setDate(newDate);
   };
 
   const handleQuantityChange = (
