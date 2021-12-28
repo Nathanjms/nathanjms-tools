@@ -1,15 +1,4 @@
-import {
-  addDays,
-  addHours,
-  addMinutes,
-  addMonths,
-  addYears,
-  subDays,
-  subHours,
-  subMinutes,
-  subMonths,
-  subYears,
-} from "date-fns";
+import { add, sub } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { Col, Row, Form, Button, InputGroup } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
@@ -36,40 +25,12 @@ const UnixToDate: React.FC<Props> = () => {
 
   const handleUnixChange = (e: React.MouseEvent<HTMLButtonElement>): void => {
     var newDate: Date | null = null;
-    if (e.currentTarget.value === "year") {
-      newDate = addTime
-        ? addYears(date, quantityToAdd)
-        : subYears(date, quantityToAdd);
-    }
-    if (e.currentTarget.value === "month") {
-      newDate = addTime
-        ? addMonths(date, quantityToAdd)
-        : subMonths(date, quantityToAdd);
-    }
-    if (e.currentTarget.value === "week") {
-      newDate = addTime
-        ? addDays(date, 7 * quantityToAdd)
-        : subDays(date, 7 * quantityToAdd);
-    }
-    if (e.currentTarget.value === "day") {
-      newDate = addTime
-        ? addDays(date, quantityToAdd)
-        : subDays(date, quantityToAdd);
-    }
-    if (e.currentTarget.value === "hour") {
-      newDate = addTime
-        ? addHours(date, quantityToAdd)
-        : subHours(date, quantityToAdd);
-    }
-    if (e.currentTarget.value === "minute") {
-      newDate = addTime
-        ? addMinutes(date, quantityToAdd)
-        : subMinutes(date, quantityToAdd);
-    }
-    
-    if (!newDate) return;
 
-    return setDate(newDate);
+    newDate = addTime
+      ? add(date, { [`${e.currentTarget.value}s`]: quantityToAdd })
+      : sub(date, { [`${e.currentTarget.value}s`]: quantityToAdd });
+
+    if (newDate) setDate(newDate); // Set new date if not null.
   };
 
   const handleQuantityChange = (
