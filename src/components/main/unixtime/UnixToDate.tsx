@@ -1,5 +1,5 @@
 import { add, sub } from "date-fns";
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Col, Row, Form, Button, InputGroup } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 import { FaCopy } from "react-icons/fa";
@@ -7,19 +7,19 @@ import Swal, { SweetAlertResult } from "sweetalert2";
 
 interface Props {}
 
-const UnixToDate: React.FC<Props> = () => {
+const UnixToDate: React.FC<Props> = (): ReactElement => {
   const [date, setDate] = useState<number | Date>(new Date());
   const [unixTime, setUnixTime] = useState<number>(0);
   const [addTime, setAddTime] = useState<boolean>(false); // True to add, false to subtract
   const [quantityToAdd, setQuantityToAdd] = useState<number>(1);
 
-  useEffect(() => {
+  useEffect((): void => {
     setUnixTime(Math.floor(Number(date) / 1000));
   }, [date]);
 
   const handleCurrentTimestampChange = (
     e: React.FormEvent<HTMLInputElement>
-  ) => {
+  ): void => {
     setDate(new Date(Number(e.currentTarget.value) * 1000));
   };
 
@@ -87,11 +87,13 @@ const UnixToDate: React.FC<Props> = () => {
     dropdown.options.add(op);
   };
 
-  const getAddSubtractWording = () => {
+  const getAddSubtractWording = (): string => {
     return addTime ? "Add" : "Subtract";
   };
 
-  const handleCopyToClipboard = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCopyToClipboard = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ): void => {
     let btn = e.currentTarget as HTMLButtonElement;
     let copyText = document.getElementById("unixTimeInput") as HTMLInputElement;
 
@@ -111,7 +113,7 @@ const UnixToDate: React.FC<Props> = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <Toaster position="top-right" />
       <Row>
         <h2>Unix Timestamp</h2>
@@ -233,7 +235,7 @@ const UnixToDate: React.FC<Props> = () => {
           </div>
         </Col>
       </Row>
-    </>
+    </React.Fragment>
   );
 };
 
