@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Row, Form, Button, InputGroup } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 import { FaCopy } from "react-icons/fa";
-import Swal from "sweetalert2";
+import Swal, { SweetAlertResult } from "sweetalert2";
 
 interface Props {}
 
@@ -30,6 +30,18 @@ const UnixToDate: React.FC<Props> = () => {
       ? add(date, { [`${e.currentTarget.value}s`]: quantityToAdd })
       : sub(date, { [`${e.currentTarget.value}s`]: quantityToAdd });
 
+    if (isNaN(newDate.getTime())) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Exceeded maximum Date range! Reloading page...",
+        confirmButtonText: "Reload Now",
+        timer: 2000,
+        timerProgressBar: true,
+      }).then((result: SweetAlertResult): void => {
+        window.location.reload();
+      });
+    }
     if (newDate) setDate(newDate); // Set new date if not null.
   };
 
@@ -49,9 +61,9 @@ const UnixToDate: React.FC<Props> = () => {
       inputLabel: `The amount to be ${getAddSubtractWording()}ed`,
       inputValue: "",
       showCancelButton: true,
-      inputValidator: (result) => {
-        if (!result || Number(result) <= 0) {
-          return "Please enter a positive integer!";
+      inputValidator: (result: string): string | null => {
+        if (!result || Number(result) <= 0 || Number(result) > 100) {
+          return "Please enter an integer between 1 and 100";
         }
         return null;
       },
