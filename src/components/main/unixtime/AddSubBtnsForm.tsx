@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useRef } from "react";
 import { add, sub } from "date-fns";
 import { Col } from "react-bootstrap";
 import { SwalErrorNaNMessage } from "./UnixTime";
@@ -17,8 +17,13 @@ const AddSubBtnsForm: React.FC<Props> = ({
   setDate,
   quantityToAdd,
 }): ReactElement => {
+  const error = useRef<boolean>(false);
   const buttonNames = ["Minute", "Hour", "Day", "Week", "Month", "Year"];
   const handleUnixChange = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    if (error.current) {
+      console.log("aborting due to error...");
+      return;
+    }
     var newDate: Date | null = null;
 
     newDate = addTime
@@ -27,6 +32,7 @@ const AddSubBtnsForm: React.FC<Props> = ({
 
     if (isNaN(newDate.getTime())) {
       SwalErrorNaNMessage();
+      error.current = true;
     }
     if (newDate) setDate(newDate); // Set new date if not null.
   };

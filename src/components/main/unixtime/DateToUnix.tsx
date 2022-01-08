@@ -1,5 +1,5 @@
 import { set } from "date-fns";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { SwalErrorNaNMessage } from "./UnixTime";
 
@@ -10,6 +10,7 @@ interface Props {
 
 const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
   const [inputValues, setInputValues] = useState<{ [x: string]: string }>();
+  const error = useRef<boolean>(false);
 
   useEffect(() => {
     setInputValues({
@@ -24,6 +25,11 @@ const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
 
   // Don't set the input values; make it set the date, and then the date will set the input values using the useEffect above.
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    if (error.current) {
+      console.log("aborting due to error...");
+      return;
+    }
+
     let { name, value } = e.currentTarget;
     if (!value) return; // Ignore if value is invalid (ie. something that wasn't a number was input)
 
@@ -35,6 +41,7 @@ const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
     if (isNaN(newDate.getTime())) {
       // Handle Invalid Date.
       SwalErrorNaNMessage();
+      error.current = true;
     }
     if (newDate) setDate(newDate); // Set new date if not null.
   };
