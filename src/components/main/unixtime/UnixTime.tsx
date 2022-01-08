@@ -21,7 +21,8 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
   const [unixTime, setUnixTime] = useState<number>(0);
   const [addTime, setAddTime] = useState<boolean>(false); // True to add, false to subtract
   const [quantityToAdd, setQuantityToAdd] = useState<number>(1);
-  const [hasExceeded32BitLimit, setHasExceeded32BitLimit] = useState<boolean>(false);
+  const [hasExceeded32BitLimit, setHasExceeded32BitLimit] =
+    useState<boolean>(false);
 
   useEffect((): void => {
     setUnixTime(Math.floor(Number(date) / 1000));
@@ -126,7 +127,6 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
         </Row>
         <Row>
           <Col xs={12}>
-            <p>The Current Unix Timestamp is:</p>
             <InputGroup className="mb-3">
               <input
                 id="unixTimeInput"
@@ -147,19 +147,18 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
               </Alert>
             </Col>
           )}
-        </Row>
-        <Row className="mt-2">
-          <Col sm={6} className="my-3">
-            <div className="grey-card h-100">
+          <Col xs={12} className="my-2">
+            <div className="grey-card">
               <h5>UK Date:</h5>
               <p>{date.toLocaleString("en-GB")}</p>
               <h5>Long Date:</h5>
               <p>{date.toString()}</p>
-              <DateToUnix date={date} setDate={setDate} />
             </div>
           </Col>
-          <Col sm={6} className="my-3">
-            <div className="grey-card">
+        </Row>
+        <Row>
+          <Col sm={6} className="my-2">
+            <div className="grey-card h-100">
               <h4>I want to...</h4>
               <Row className="mb-3">
                 <Col xs={6}>
@@ -246,6 +245,12 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
                   </button>
                 </Col>
               </Row>
+            </div>
+          </Col>
+          <Col sm={6} className="my-2">
+            <div className="grey-card h-100">
+              <h4>Date to Unix...</h4>
+              <DateToUnix date={date} setDate={setDate} />
             </div>
           </Col>
         </Row>
