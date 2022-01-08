@@ -6,12 +6,10 @@ import { FaCopy } from "react-icons/fa";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import DateToUnix from "./DateToUnix";
 
-interface Props {
-  date: Date;
-  setDate: (date: Date) => void;
-}
+interface UnixTimeProps {}
 
-const UnixToDate: React.FC<Props> = ({ date, setDate }): ReactElement => {
+const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
+  const [date, setDate] = useState<Date>((new Date()));
   const [unixTime, setUnixTime] = useState<number>(0);
   const [addTime, setAddTime] = useState<boolean>(false); // True to add, false to subtract
   const [quantityToAdd, setQuantityToAdd] = useState<number>(1);
@@ -249,4 +247,4 @@ export const SwalErrorNaNMessage = () => {
   });
 };
 
-export default UnixToDate;
+export default UnixTime;

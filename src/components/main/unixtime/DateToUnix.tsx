@@ -1,39 +1,50 @@
+import { set } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { SwalErrorNaNMessage } from "./UnixTime";
 
-interface Props {}
+interface Props {
+  date: Date;
+  setDate: (date: Date) => void;
+}
 
-const DateToUnix: React.FC<Props> = () => {
+const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
   const [inputValues, setInputValues] = useState<{ [x: string]: string }>();
-  const [date, setDate] = useState<any>(0);
-
 
   useEffect(() => {
-    if (!inputValues) return;
+    setInputValues({
+      year: date.getFullYear().toString().padStart(4, "0"),
+      month: (date.getMonth() + 1).toString().padStart(2, "0"),
+      date: date.getDate().toString().padStart(2, "0"),
+      hours: date.getHours().toString().padStart(2, "0"),
+      minutes: date.getMinutes().toString().padStart(2, "0"),
+      seconds: date.getSeconds().toString().padStart(2, "0"),
+    });
+  }, [date]);
 
-    setDate(
-      new Date(
-        Number(inputValues.year),
-        Number(inputValues.month) - 1,
-        Number(inputValues.day),
-        Number(inputValues.hour),
-        Number(inputValues.minute),
-        Number(inputValues.second)
-      )
-    );
-  }, [inputValues]);
-
+  // Don't set the input values; make it set the date, and then the date will set the input values using the useEffect above.
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget;
-    setInputValues((prevState) => ({ ...prevState, [name]: value }));
+    let { name, value } = e.currentTarget;
+    if (!value) return;
+    console.log(value);
+    var newDate: Date | null = null;
+    if (name === 'month') {
+      value = (Number(value) - 1).toString().padStart(2,"0");
+    }
+    newDate = set(date, { [`${name}`]: value });
+    if (isNaN(newDate.getTime())) {
+      // Handle Invalid Date.
+      SwalErrorNaNMessage()
+    }
+    if (newDate) setDate(newDate); // Set new date if not null.
   };
 
   return (
     <Row className="mt-4">
       <Col xs={12}>
-        <h2>Date to Unix</h2>
+        <h5>Date to Unix:</h5>
       </Col>
-      <Col md={2}>
+      <Col md={6} lg={4}>
         <label className="form-label">Year</label>
         <input
           name="year"
@@ -45,7 +56,7 @@ const DateToUnix: React.FC<Props> = () => {
           onChange={handleInputChange}
         />
       </Col>
-      <Col md={2}>
+      <Col md={6} lg={4}>
         <label className="form-label">Month</label>
         <input
           name="month"
@@ -59,35 +70,35 @@ const DateToUnix: React.FC<Props> = () => {
           onChange={handleInputChange}
         />
       </Col>
-      <Col md={2}>
+      <Col md={6} lg={4}>
         <label className="form-label">Day</label>
         <input
-          name="day"
+          name="date"
           className="form-control"
           type="number"
           min="1"
           max="31"
           maxLength={2}
           placeholder="DD"
-          value={inputValues?.day || ""}
+          value={inputValues?.date || ""}
           onChange={handleInputChange}
         />
       </Col>
-      <Col md={2}>
+      <Col md={6} lg={4}>
         <label className="form-label">Hour</label>
         <input
-          name="hour"
+          name="hours"
           className="form-control"
           type="number"
           min="0"
           max="23"
           maxLength={2}
           placeholder="HH"
-          value={inputValues?.hour || ""}
+          value={inputValues?.hours || ""}
           onChange={handleInputChange}
         />
       </Col>
-      <Col md={2}>
+      <Col md={6} lg={4}>
         <label className="form-label">Minutes</label>
         <input
           name="minutes"
@@ -97,11 +108,11 @@ const DateToUnix: React.FC<Props> = () => {
           max="59"
           maxLength={2}
           placeholder="MM"
-          value={inputValues?.minute || ""}
+          value={inputValues?.minutes || ""}
           onChange={handleInputChange}
         />
       </Col>
-      <Col md={2}>
+      <Col md={6} lg={4}>
         <label className="form-label">Seconds</label>
         <input
           name="seconds"
@@ -111,7 +122,7 @@ const DateToUnix: React.FC<Props> = () => {
           max="59"
           maxLength={2}
           placeholder="SS"
-          value={inputValues?.second || ""}
+          value={inputValues?.seconds || ""}
           onChange={handleInputChange}
         />
       </Col>
