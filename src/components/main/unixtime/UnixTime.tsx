@@ -1,4 +1,3 @@
-import { add, sub } from "date-fns";
 import React, { ReactElement, useEffect, useState } from "react";
 import {
   Col,
@@ -12,6 +11,7 @@ import {
 import toast, { Toaster } from "react-hot-toast";
 import { FaCopy } from "react-icons/fa";
 import Swal, { SweetAlertResult } from "sweetalert2";
+import AddSubBtnsForm from "./AddSubBtnsForm";
 import DateToUnix from "./DateToUnix";
 
 interface UnixTimeProps {}
@@ -36,19 +36,6 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
     e: React.FormEvent<HTMLInputElement>
   ): void => {
     setDate(new Date(Number(e.currentTarget.value) * 1000));
-  };
-
-  const handleUnixChange = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    var newDate: Date | null = null;
-
-    newDate = addTime
-      ? add(date, { [`${e.currentTarget.value}s`]: quantityToAdd })
-      : sub(date, { [`${e.currentTarget.value}s`]: quantityToAdd });
-
-    if (isNaN(newDate.getTime())) {
-      SwalErrorNaNMessage();
-    }
-    if (newDate) setDate(newDate); // Set new date if not null.
   };
 
   const handleQuantityChange = (
@@ -190,60 +177,7 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
                 </Col>
               </Row>
               <Row className="justify-content-center add-sub-btns-container">
-                <Col xs={6} lg={4}>
-                  <button
-                    className="btn btn-primary"
-                    onClick={handleUnixChange}
-                    value="minute"
-                  >
-                    Minute
-                  </button>
-                </Col>
-                <Col xs={6} lg={4}>
-                  <button
-                    className="btn btn-primary"
-                    onClick={handleUnixChange}
-                    value="hour"
-                  >
-                    Hour
-                  </button>
-                </Col>
-                <Col xs={6} lg={4}>
-                  <button
-                    className="btn btn-primary"
-                    onClick={handleUnixChange}
-                    value="day"
-                  >
-                    Day
-                  </button>
-                </Col>
-                <Col xs={6} lg={4}>
-                  <button
-                    className="btn btn-primary"
-                    onClick={handleUnixChange}
-                    value="week"
-                  >
-                    Week
-                  </button>
-                </Col>
-                <Col xs={6} lg={4}>
-                  <button
-                    className="btn btn-primary"
-                    onClick={handleUnixChange}
-                    value="month"
-                  >
-                    Month
-                  </button>
-                </Col>
-                <Col xs={6} lg={4}>
-                  <button
-                    className="btn btn-primary"
-                    onClick={handleUnixChange}
-                    value="year"
-                  >
-                    Year
-                  </button>
-                </Col>
+                <AddSubBtnsForm addTime={addTime} date={date} setDate={setDate} quantityToAdd={quantityToAdd}/>
               </Row>
             </div>
           </Col>
