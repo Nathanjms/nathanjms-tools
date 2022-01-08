@@ -1,7 +1,8 @@
-import { add, sub } from "date-fns";
 import React, { ReactElement } from "react";
+import { add, sub } from "date-fns";
 import { Col } from "react-bootstrap";
 import { SwalErrorNaNMessage } from "./UnixTime";
+import AddSubBtn from "./AddSubBtn";
 
 interface Props {
   addTime: boolean;
@@ -16,6 +17,7 @@ const AddSubBtnsForm: React.FC<Props> = ({
   setDate,
   quantityToAdd,
 }): ReactElement => {
+  const buttonNames = ["Minute", "Hour", "Day", "Week", "Month", "Year"];
   const handleUnixChange = (e: React.MouseEvent<HTMLButtonElement>): void => {
     var newDate: Date | null = null;
 
@@ -28,62 +30,20 @@ const AddSubBtnsForm: React.FC<Props> = ({
     }
     if (newDate) setDate(newDate); // Set new date if not null.
   };
+
   return (
     <>
-      <Col xs={6} lg={4}>
-        <button
-          className="btn btn-primary"
-          onClick={handleUnixChange}
-          value="minute"
-        >
-          Minute
-        </button>
-      </Col>
-      <Col xs={6} lg={4}>
-        <button
-          className="btn btn-primary"
-          onClick={handleUnixChange}
-          value="hour"
-        >
-          Hour
-        </button>
-      </Col>
-      <Col xs={6} lg={4}>
-        <button
-          className="btn btn-primary"
-          onClick={handleUnixChange}
-          value="day"
-        >
-          Day
-        </button>
-      </Col>
-      <Col xs={6} lg={4}>
-        <button
-          className="btn btn-primary"
-          onClick={handleUnixChange}
-          value="week"
-        >
-          Week
-        </button>
-      </Col>
-      <Col xs={6} lg={4}>
-        <button
-          className="btn btn-primary"
-          onClick={handleUnixChange}
-          value="month"
-        >
-          Month
-        </button>
-      </Col>
-      <Col xs={6} lg={4}>
-        <button
-          className="btn btn-primary"
-          onClick={handleUnixChange}
-          value="year"
-        >
-          Year
-        </button>
-      </Col>
+      {buttonNames.map((btnName, index) => {
+        return (
+          <Col key={index} xs={6} lg={4}>
+            <AddSubBtn
+              name={btnName}
+              value={btnName.toLowerCase()}
+              handleUnixChange={handleUnixChange}
+            />
+          </Col>
+        );
+      })}
     </>
   );
 };
