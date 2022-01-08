@@ -25,8 +25,8 @@ const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
   // Don't set the input values; make it set the date, and then the date will set the input values using the useEffect above.
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
     let { name, value } = e.currentTarget;
-    if (!value) return;
-    console.log(value);
+    if (!value) return; // Ignore if value is invalid (ie. something that wasn't a number was input)
+
     var newDate: Date | null = null;
     if (name === 'month') {
       value = (Number(value) - 1).toString().padStart(2,"0");

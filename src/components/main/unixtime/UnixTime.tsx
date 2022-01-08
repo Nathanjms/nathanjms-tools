@@ -1,6 +1,14 @@
 import { add, sub } from "date-fns";
 import React, { ReactElement, useEffect, useState } from "react";
-import { Col, Row, Form, Button, InputGroup, Container } from "react-bootstrap";
+import {
+  Col,
+  Row,
+  Form,
+  Button,
+  InputGroup,
+  Container,
+  Alert,
+} from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 import { FaCopy } from "react-icons/fa";
 import Swal, { SweetAlertResult } from "sweetalert2";
@@ -9,14 +17,19 @@ import DateToUnix from "./DateToUnix";
 interface UnixTimeProps {}
 
 const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
-  const [date, setDate] = useState<Date>((new Date()));
+  const [date, setDate] = useState<Date>(new Date());
   const [unixTime, setUnixTime] = useState<number>(0);
   const [addTime, setAddTime] = useState<boolean>(false); // True to add, false to subtract
   const [quantityToAdd, setQuantityToAdd] = useState<number>(1);
+  const [hasExceeded32BitLimit, setHasExceeded32BitLimit] = useState<boolean>(false);
 
   useEffect((): void => {
     setUnixTime(Math.floor(Number(date) / 1000));
   }, [date]);
+
+  useEffect((): void => {
+    setHasExceeded32BitLimit(unixTime > 2147483647);
+  }, [unixTime]);
 
   const handleCurrentTimestampChange = (
     e: React.FormEvent<HTMLInputElement>
@@ -112,7 +125,7 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
           <h2>Unix Timestamp</h2>
         </Row>
         <Row>
-          <Col>
+          <Col xs={12}>
             <p>The Current Unix Timestamp is:</p>
             <InputGroup className="mb-3">
               <input
@@ -127,6 +140,13 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
               </Button>
             </InputGroup>
           </Col>
+          {hasExceeded32BitLimit && (
+            <Col>
+              <Alert variant="warning">
+                Warning: Date has exceeded 32 Bit memory limit.
+              </Alert>
+            </Col>
+          )}
         </Row>
         <Row className="mt-2">
           <Col sm={6} className="my-3">
