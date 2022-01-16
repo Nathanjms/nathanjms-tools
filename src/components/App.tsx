@@ -4,6 +4,7 @@ import Footer from "./global/Footer";
 import Header from "./global/Header";
 import Home from "./main/Home";
 import UnixTime from "./main/unixtime/UnixTime";
+import CharacterCount from "./main/character-count/CharacterCount";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <div className="wrapper container">
         <Home />
         <UnixTime />
+        <CharacterCount />
       </div>
       <Footer />
     </React.Fragment>
