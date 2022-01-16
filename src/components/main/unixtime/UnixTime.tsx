@@ -183,7 +183,7 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
           </Col>
           <Col sm={6} className="my-2">
             <div className="grey-card h-100">
-              <h4>Date to Unix...</h4>
+              <h4>Date to Unix</h4>
               <DateToUnix date={date} setDate={setDate} />
             </div>
           </Col>
