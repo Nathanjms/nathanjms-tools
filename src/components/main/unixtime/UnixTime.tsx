@@ -193,11 +193,11 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
   );
 };
 
-export const SwalErrorNaNMessage = () => {
+export const SwalErrorNaNMessage = (errMessage: string = "Error"): void => {
   Swal.fire({
     icon: "error",
     title: "Oops...",
-    text: "Exceeded maximum Date range! Reloading page...",
+    text: errMessage,
     confirmButtonText: "Reload Now",
     timer: 2000,
     timerProgressBar: true,
