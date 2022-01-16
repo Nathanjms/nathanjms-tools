@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 export default function Header() {
   const { pathname } = useLocation();
   const isTabActive = (tabName: string): boolean => {
+    // TODO: make array to store each path and streamline method
     if (tabName === pathname.substring(1)) {
       return true;
     }
@@ -28,6 +29,12 @@ export default function Header() {
               href="character-count"
             >
               Character Count
+            </Nav.Link>
+            <Nav.Link
+              active={isTabActive("column-to-csv")}
+              href="column-to-csv"
+            >
+              Column to CSV
             </Nav.Link>
             <Nav.Item className="text-muted">Map [WIP]</Nav.Item>
           </Nav>
