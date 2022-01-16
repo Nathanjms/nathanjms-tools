@@ -1,6 +1,6 @@
 import { set } from "date-fns";
-import React, { useEffect, useRef, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { SwalErrorNaNMessage } from "./UnixTime";
 
 interface Props {
@@ -9,8 +9,14 @@ interface Props {
 }
 
 const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
-  const [inputValues, setInputValues] = useState<{ [x: string]: string }>();
-  const error = useRef<boolean>(false);
+  const [inputValues, setInputValues] = useState<{ [x: string]: string }>({
+    date: "",
+    month: "",
+    year: "",
+    hour: "",
+    minute: "",
+    second: "",
+  });
 
   useEffect(() => {
     setInputValues({
@@ -23,114 +29,136 @@ const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
     });
   }, [date]);
 
-  // Don't set the input values; make it set the date, and then the date will set the input values using the useEffect above.
-  const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
-    if (error.current) {
-      console.log("aborting due to error...");
+  const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+    let { name, value } = e.currentTarget;
+    setInputValues({ ...inputValues, [name]: value });
+  };
+
+  const handleUpdateUnixSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    var newDate: Date | null = null;
+
+    newDate = set(date, {
+      date: Number(inputValues.date),
+      month: Number(inputValues.month) - 1,
+      year: Number(inputValues.year),
+      hours: Number(inputValues.hours),
+      minutes: Number(inputValues.minutes),
+      seconds: Number(inputValues.seconds),
+    });
+
+    if (isNaN(newDate.getTime())) {
+      // Handle Invalid Date.
+      SwalErrorNaNMessage("Error with the input date! Reloading...");
       return;
     }
 
-    let { name, value } = e.currentTarget;
-    if (!value) return; // Ignore if value is invalid (ie. something that wasn't a number was input)
-
-    var newDate: Date | null = null;
-    if (name === "month") {
-      value = (Number(value) - 1).toString().padStart(2, "0"); // Account for month's 0 indexing
-    }
-    newDate = set(date, { [`${name}`]: value });
-    if (isNaN(newDate.getTime())) {
-      // Handle Invalid Date.
-      SwalErrorNaNMessage();
-      error.current = true;
-    }
-    if (newDate) setDate(newDate); // Set new date if not null.
+    if (newDate) setDate(newDate); // Set new date if date is valid.
   };
 
   return (
-    <Row>
-      <Col xs={6} lg={4}>
-        <label className="form-label">Day</label>
-        <input
-          name="date"
-          className="form-control"
-          type="number"
-          min="1"
-          max="31"
-          maxLength={2}
-          placeholder="DD"
-          value={inputValues?.date || ""}
-          onChange={handleInputChange}
-        />
-      </Col>
-      <Col xs={6} lg={4}>
-        <label className="form-label">Month</label>
-        <input
-          name="month"
-          className="form-control"
-          type="number"
-          min="1"
-          max="12"
-          maxLength={2}
-          placeholder="MM"
-          value={inputValues?.month || ""}
-          onChange={handleInputChange}
-        />
-      </Col>
-      <Col xs={6} lg={4}>
-        <label className="form-label">Year</label>
-        <input
-          name="year"
-          className="form-control"
-          type="number"
-          maxLength={4}
-          placeholder="YYYY"
-          value={inputValues?.year || ""}
-          onChange={handleInputChange}
-        />
-      </Col>
-      <Col xs={6} lg={4}>
-        <label className="form-label">Hour</label>
-        <input
-          name="hours"
-          className="form-control"
-          type="number"
-          min="0"
-          max="23"
-          maxLength={2}
-          placeholder="HH"
-          value={inputValues?.hours || ""}
-          onChange={handleInputChange}
-        />
-      </Col>
-      <Col xs={6} lg={4}>
-        <label className="form-label">Minutes</label>
-        <input
-          name="minutes"
-          className="form-control"
-          type="number"
-          min="0"
-          max="59"
-          maxLength={2}
-          placeholder="MM"
-          value={inputValues?.minutes || ""}
-          onChange={handleInputChange}
-        />
-      </Col>
-      <Col xs={6} lg={4}>
-        <label className="form-label">Seconds</label>
-        <input
-          name="seconds"
-          className="form-control"
-          type="number"
-          min="0"
-          max="59"
-          maxLength={2}
-          placeholder="SS"
-          value={inputValues?.seconds || ""}
-          onChange={handleInputChange}
-        />
-      </Col>
-    </Row>
+    <Form id="dateToUnixForm" onSubmit={handleUpdateUnixSubmit}>
+      <Row>
+        <Col xs={6} lg={4}>
+          <label className="form-label">Day</label>
+          <input
+            name="date"
+            className="form-control"
+            type="number"
+            min="1"
+            max="31"
+            required={true}
+            maxLength={2}
+            placeholder="DD"
+            value={inputValues?.date || ""}
+            onChange={handleOnChange}
+          />
+        </Col>
+        <Col xs={6} lg={4}>
+          <label className="form-label">Month</label>
+          <input
+            name="month"
+            className="form-control"
+            type="number"
+            min="1"
+            max="12"
+            required={true}
+            maxLength={2}
+            placeholder="MM"
+            value={inputValues?.month || ""}
+            onChange={handleOnChange}
+          />
+        </Col>
+        <Col xs={6} lg={4}>
+          <label className="form-label">Year</label>
+          <input
+            name="year"
+            className="form-control"
+            type="number"
+            maxLength={4}
+            placeholder="YYYY"
+            min="-9999"
+            max="9999"
+            required={true}
+            value={inputValues?.year || ""}
+            onChange={handleOnChange}
+          />
+        </Col>
+        <Col xs={6} lg={4}>
+          <label className="form-label">Hour</label>
+          <input
+            name="hours"
+            className="form-control"
+            type="number"
+            min="0"
+            max="23"
+            required={true}
+            maxLength={2}
+            placeholder="HH"
+            value={inputValues?.hours || ""}
+            onChange={handleOnChange}
+          />
+        </Col>
+        <Col xs={6} lg={4}>
+          <label className="form-label">Minutes</label>
+          <input
+            name="minutes"
+            className="form-control"
+            type="number"
+            min="0"
+            max="59"
+            required={true}
+            maxLength={2}
+            placeholder="MM"
+            value={inputValues?.minutes || ""}
+            onChange={handleOnChange}
+          />
+        </Col>
+        <Col xs={6} lg={4}>
+          <label className="form-label">Seconds</label>
+          <input
+            name="seconds"
+            className="form-control"
+            type="number"
+            min="0"
+            max="59"
+            required={true}
+            maxLength={2}
+            placeholder="SS"
+            value={inputValues?.seconds || ""}
+            onChange={handleOnChange}
+          />
+        </Col>
+        <Col xs={12}>
+          <Button
+            className="w-100 mt-3"
+            as="input"
+            type="submit"
+            value="Convert"
+          />
+        </Col>
+      </Row>
+    </Form>
   );
 };
 
