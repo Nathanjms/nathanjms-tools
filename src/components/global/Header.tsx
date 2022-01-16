@@ -10,6 +10,7 @@ export default function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="#unix-timestamp">Unix TimeStamp</Nav.Link>
+            <Nav.Link href="#character-count">Character Count</Nav.Link>
             <Nav.Item className="text-muted">Map [WIP]</Nav.Item>
           </Nav>
           <Nav>
