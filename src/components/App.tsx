@@ -1,7 +1,13 @@
 import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from "react-router-dom";
 import "../css/App.css";
 import Footer from "./global/Footer";
 import Header from "./global/Header";
+import NotFound from "./global/NotFound";
 import Home from "./main/Home";
 import UnixTime from "./main/unixtime/UnixTime";
 import CharacterCount from "./main/character-count/CharacterCount";
@@ -9,13 +15,18 @@ import CharacterCount from "./main/character-count/CharacterCount";
 function App() {
   return (
     <React.Fragment>
-      <Header />
-      <div className="wrapper container">
-        <Home />
-        <UnixTime />
-        <CharacterCount />
-      </div>
-      <Footer />
+      <Router>
+        <Header />
+        <div className="wrapper container">
+          <Home />
+          <Routes>
+            <Route path="/" element={<UnixTime />} />
+            <Route path="/character-count" element={<CharacterCount />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+        <Footer />
+      </Router>
     </React.Fragment>
   );
 }
