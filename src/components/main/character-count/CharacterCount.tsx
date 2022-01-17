@@ -11,7 +11,7 @@ const CharacterCount: React.FC<Props> = (): ReactElement => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     let inputText = e.currentTarget.value;
     setCharCount(inputText.length);
-    setWordCount(inputText.split(/\s\S/).length);
+    setWordCount(inputText.split(/\s\S/g).length);
     setLineCount(inputText.split("\n").length);
   };
 
