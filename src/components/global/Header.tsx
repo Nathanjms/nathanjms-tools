@@ -1,15 +1,15 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
+import headerItems from "../../data/headerItems.json";
 
 export default function Header() {
   const { pathname } = useLocation();
-  const isTabActive = (tabName: string): boolean => {
-    // TODO: make array to store each path and streamline method
-    if (tabName === pathname.substring(1)) {
-      return true;
+  const isTabActive = (tabName: string, homePage: boolean): boolean => {
+    if (homePage && pathname === "/") {
+      return true; // Set as homepage
     }
-    if (tabName === "unix-timestamp" && pathname === "/") {
+    if (tabName === pathname.substring(1)) {
       return true;
     }
     return false;
@@ -17,26 +17,19 @@ export default function Header() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="grey" variant="dark" sticky="top">
       <Container>
-        <Navbar.Brand href="/">Nathan James</Navbar.Brand>
+        <Navbar.Brand href="/">NathanJms</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link active={isTabActive("unix-timestamp")} href="/">
-              Unix Timestamp
-            </Nav.Link>
-            <Nav.Link
-              active={isTabActive("character-count")}
-              href="character-count"
-            >
-              Character Count
-            </Nav.Link>
-            <Nav.Link
-              active={isTabActive("column-to-csv")}
-              href="column-to-csv"
-            >
-              Column to CSV
-            </Nav.Link>
-            <Nav.Item className="text-muted">Map [WIP]</Nav.Item>
+            {headerItems.map((element) => (
+                <Nav.Link
+                  key={element.id}
+                  active={isTabActive(element.tabName, element.homePage)}
+                  href={element.link}
+                >
+                {element.name}
+                </Nav.Link>
+            ))}
           </Nav>
           <Nav>
             <Nav.Link href="https://nathanjms.co.uk">
