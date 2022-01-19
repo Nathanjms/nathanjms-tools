@@ -12,6 +12,7 @@ import Home from "./main/Home";
 import UnixTime from "./main/unixtime/UnixTime";
 import CharacterCount from "./main/character-count/CharacterCount";
 import ColumnToCsv from "./main/column-to-csv/ColumnToCsv";
+import Notes from "./main/notes/Notes";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" element={<UnixTime />} />
             <Route path="/character-count" element={<CharacterCount />} />
             <Route path="/column-to-csv" element={<ColumnToCsv />} />
+            <Route path="/notes" element={<Notes />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
