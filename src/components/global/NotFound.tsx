@@ -1,29 +1,31 @@
-import React from "react";
-import Footer from "./Footer";
+import React, { ReactElement } from "react";
+import { Col, Container, Row, Button } from "react-bootstrap";
+import Header from "./Header";
 
-function NotFound() {
+
+interface NotFoundProps {}
+
+export const NotFound: React.FC<NotFoundProps> = (): ReactElement => {
   return (
     <React.Fragment>
-      <section id="notFound" className="main-body-sections">
-        <div className="container" id="notFound">
-          <div>
-            <div>
-              <h1>404 Not Found</h1>
-              <p style={{ paddingBottom: '40px' }}>A page does not exist at this location.</p>
-              <p>
-                <a href="/">Return to main site.</a>
-              </p>
-              <p>
-                Looking for the movies section? It has moved to <a href="https://movies.nathanjms.co.uk">https://movies.nathanjms.co.uk</a>.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <footer id="footer">
-        <Footer />
-      </footer>
+      <Header />
+      <Container id="notFound" className="section">
+        <Row className="pt-5">
+          <h2>404 Not Found</h2>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <p>
+              A page does not exist at this location.
+            </p>
+            <p>
+              <Button href="/">Return to homepage?</Button>
+            </p>
+          </Col>
+        </Row>
+      </Container>
     </React.Fragment>
   );
 }
+
 export default NotFound;
