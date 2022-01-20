@@ -27,7 +27,12 @@ const Notes: React.FC<Props> = (): ReactElement => {
         <h2>Notes</h2>
       </Row>
       <Row>
-        <Col xs={12}>
+        <Col sm={3}>
+        <div className="note">
+            <h3>Notes</h3>
+          </div>
+        </Col>
+        <Col sm={9}>
           <div className="note">
             <ReactMarkdown children={fnKeys} />
           </div>
