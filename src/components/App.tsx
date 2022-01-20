@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "../css/App.css";
 import NotFound from "./global/NotFound";
@@ -7,7 +7,9 @@ import CharacterCount from "./main/character-count/CharacterCount";
 import ColumnToCsv from "./main/column-to-csv/ColumnToCsv";
 import Default from "./global/Default";
 
-function App() {
+interface AppProps {}
+
+export const App: React.FC<AppProps> = (): ReactElement => {
   return (
     <React.Fragment>
       <Router>
@@ -26,6 +28,6 @@ function App() {
       </Router>
     </React.Fragment>
   );
-}
+};
 
 export default App;
