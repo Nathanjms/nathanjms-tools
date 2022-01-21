@@ -1,16 +1,14 @@
-import React, { Component, ReactElement, useEffect, useState } from "react";
-import FnKeys from "../../../data/fnkeys.md";
-// import UsefulPrograms from "../../../data/usefulPrograms.md";
+import React, { ReactElement, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Link } from "react-router-dom";
-import { FaHome } from "react-icons/fa";
 import "../../../css/Notes.css";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, ListGroup, ListGroupItem, Row } from "react-bootstrap";
+import docsConfig from "../../../data/docsConfig.json";
 
 interface Props {}
 
 const Notes: React.FC<Props> = (): ReactElement => {
-  const [fnKeys, setFnKeys] = useState<string>("");
+  const [fileName, setFileName] = useState<string>("");
+  const [document, setDocument] = useState<string>("");
   useEffect(() => {
     import(`../../../data/docs/${fileName}.md`)
       .then((markDown) => {
@@ -31,16 +29,35 @@ const Notes: React.FC<Props> = (): ReactElement => {
     <Container id="notes" className="section text-start">
       <Row>
         <h2>Notes</h2>
+        <p>
+          Below contains some documentation that I've made, which is probably
+          only useful to me... but feel free to take a look!
+        </p>
       </Row>
       <Row>
         <Col sm={3}>
-        <div className="note">
-            <h3>Notes</h3>
+          <div className="note">
+            <h4>Documents</h4>
+            <p>Select a document from the list below...</p>
+            <ListGroup>
+              {docsConfig.map((docConfig, index) => {
+                return (
+                  <ListGroupItem
+                    action
+                    as="button"
+                    key={docConfig.id}
+                    active={fileName === docConfig.fileName}
+                  >
+                    {docConfig.name}
+                  </ListGroupItem>
+                );
+              })}
+            </ListGroup>
           </div>
         </Col>
         <Col sm={9}>
           <div className="note">
-            <ReactMarkdown children={fnKeys} />
+            <ReactMarkdown children={document} />
           </div>
           {/* <div className="note">
                 <ReactMarkdown children={UsefulPrograms} />
