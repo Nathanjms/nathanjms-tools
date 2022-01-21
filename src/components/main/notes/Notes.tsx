@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import "../../../css/Notes.css";
 import { Col, Container, Row } from "react-bootstrap";
 import NotesList from "./NotesList";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
