@@ -12,12 +12,18 @@ interface Props {}
 const Notes: React.FC<Props> = (): ReactElement => {
   const [fnKeys, setFnKeys] = useState<string>("");
   useEffect(() => {
-    fetch(FnKeys)
-      .then((res) => res.text())
-      .then((text) => {
-        setFnKeys(text);
+    import(`../../../data/docs/${fileName}.md`)
+      .then((markDown) => {
+        fetch(markDown.default)
+          .then((res) => res.text())
+          .then((text) => {
+            setDocument(text);
+          });
+      })
+      .catch((error) => {
+        setDocument("*Select a document for it's content to appear here.*");
       });
-    // fetch(UsefulPrograms)
+  }, [fileName]);
     //   .then((res) => res.text())
     //   .then((text) => this.setState({ UsefulPrograms: text }));
   }, []);
