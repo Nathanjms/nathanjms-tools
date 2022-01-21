@@ -40,7 +40,7 @@ function Footer() {
                 <li>
                   <a href="https://movies.nathanjms.co.uk">Movies</a>
                 </li>
-                <li>Last updated: 16th Jan 2022</li>
+                <li>Last updated: 21st Jan 2022</li>
               </ul>
             </div>
           </Col>
