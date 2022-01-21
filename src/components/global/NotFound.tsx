@@ -1,14 +1,11 @@
 import React, { ReactElement } from "react";
 import { Col, Container, Row, Button } from "react-bootstrap";
-import Header from "./Header";
-
 
 interface NotFoundProps {}
 
 export const NotFound: React.FC<NotFoundProps> = (): ReactElement => {
   return (
     <React.Fragment>
-      <Header />
       <Container id="notFound" className="section">
         <Row className="pt-5">
           <h2>404 Not Found</h2>

@@ -23,7 +23,10 @@ export const App: React.FC<AppProps> = (): ReactElement => {
             path="/column-to-csv"
             element={<Default component={<ColumnToCsv />} />}
           />
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="*"
+            element={<Default component={<NotFound />} nj={false} />}
+          />
         </Routes>
       </Router>
     </React.Fragment>
