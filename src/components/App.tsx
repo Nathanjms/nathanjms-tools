@@ -6,6 +6,7 @@ import UnixTime from "./main/unixtime/UnixTime";
 import CharacterCount from "./main/character-count/CharacterCount";
 import ColumnToCsv from "./main/column-to-csv/ColumnToCsv";
 import Default from "./global/Default";
+import Notes from "./main/notes/Notes";
 
 interface AppProps {}
 
@@ -22,6 +23,10 @@ export const App: React.FC<AppProps> = (): ReactElement => {
           <Route
             path="/column-to-csv"
             element={<Default component={<ColumnToCsv />} />}
+          />
+         <Route
+            path="/notes"
+            element={<Default component={<Notes />} />}
           />
           <Route
             path="*"

@@ -161,3 +161,16 @@ body {
   border-radius: 5px;
   margin-inline: auto;
 }
+
+.list-group-item.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.note {
+  margin-top: 20px;
+  background-color: #3d4148;
+  padding: 30px;
+  border-radius: 10px;
+  word-wrap: break-word;
+}
