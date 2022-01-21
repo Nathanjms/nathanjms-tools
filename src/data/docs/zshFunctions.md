@@ -1,4 +1,4 @@
-# Create user functions in zsh
+### Create user functions in zsh
 
 1. Create a new folder called `.zshfunctions` in your home directory
     1. `mkdir ~/.zshfunctions`

@@ -1,8 +1,8 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import "../../../css/Notes.css";
-import { Col, Container, ListGroup, ListGroupItem, Row } from "react-bootstrap";
-import docsConfig from "../../../data/docsConfig.json";
+import { Col, Container, Row } from "react-bootstrap";
+import NotesList from "./NotesList";
 
 interface Props {}
 
@@ -23,8 +23,6 @@ const Notes: React.FC<Props> = (): ReactElement => {
       });
   }, [fileName]);
 
-  const handleClick = (fileName: string) => setFileName(fileName);
-
   return (
     <Container id="notes" className="section text-start">
       <Row>
@@ -39,30 +37,13 @@ const Notes: React.FC<Props> = (): ReactElement => {
           <div className="note">
             <h4>Documents</h4>
             <p>Select a document from the list below...</p>
-            <ListGroup>
-              {docsConfig.map((docConfig, index) => {
-                return (
-                  <ListGroupItem
-                    action
-                    as="button"
-                    key={docConfig.id}
-                    onClick={() => handleClick(docConfig.fileName)}
-                    active={fileName === docConfig.fileName}
-                  >
-                    {docConfig.name}
-                  </ListGroupItem>
-                );
-              })}
-            </ListGroup>
+            <NotesList setFileName={setFileName} fileName={fileName} />
           </div>
         </Col>
         <Col sm={9}>
           <div className="note">
             <ReactMarkdown children={document} />
           </div>
-          {/* <div className="note">
-                <ReactMarkdown children={UsefulPrograms} />
-              </div> */}
         </Col>
       </Row>
     </Container>
