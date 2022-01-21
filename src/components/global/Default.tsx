@@ -7,17 +7,25 @@ import Header from "./Header";
 
 interface DefaultProps {
   component: ReactElement;
+  header?: boolean;
+  footer?: boolean;
+  nj?: boolean;
 }
 
-const Default: React.FC<DefaultProps> = ({ component }): ReactElement => {
+const Default: React.FC<DefaultProps> = ({
+  component,
+  header = true,
+  footer = true,
+  nj = true,
+}): ReactElement => {
   return (
     <>
-      <Header />
+      {header && <Header />}
       <Container className="wrapper">
-        <Home />
+        {nj && <Home />}
         {component}
       </Container>
-      <Footer />
+      {footer && <Footer />}
     </>
   );
 };

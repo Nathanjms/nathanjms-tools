@@ -28,7 +28,10 @@ export const App: React.FC<AppProps> = (): ReactElement => {
             path="/notes"
             element={<Default component={<Notes />} />}
           />
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="*"
+            element={<Default component={<NotFound />} nj={false} />}
+          />
         </Routes>
       </Router>
     </React.Fragment>
