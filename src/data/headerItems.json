@@ -19,5 +19,12 @@
     "link": "column-to-csv",
     "tabName": "column-to-csv",
     "homePage": false
+  },
+  {
+    "id": 4,
+    "name": "Notes",
+    "link": "notes",
+    "tabName": "notes",
+    "homePage": false
   }
 ]
