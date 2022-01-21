@@ -22,9 +22,9 @@ const Notes: React.FC<Props> = (): ReactElement => {
         setDocument("*Select a document for it's content to appear here.*");
       });
   }, [fileName]);
-    //   .then((res) => res.text())
-    //   .then((text) => this.setState({ UsefulPrograms: text }));
-  }, []);
+
+  const handleClick = (fileName: string) => setFileName(fileName);
+
   return (
     <Container id="notes" className="section text-start">
       <Row>
@@ -46,6 +46,7 @@ const Notes: React.FC<Props> = (): ReactElement => {
                     action
                     as="button"
                     key={docConfig.id}
+                    onClick={() => handleClick(docConfig.fileName)}
                     active={fileName === docConfig.fileName}
                   >
                     {docConfig.name}
