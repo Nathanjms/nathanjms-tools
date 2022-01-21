@@ -22,9 +22,9 @@
   },
   {
     "id": 4,
-    "name": "Notes",
-    "link": "notes",
-    "tabName": "notes",
+    "name": "Documents",
+    "link": "documents",
+    "tabName": "documents",
     "homePage": false
   }
 ]

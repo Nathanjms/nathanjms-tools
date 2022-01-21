@@ -27,7 +27,7 @@ const Notes: React.FC<Props> = (): ReactElement => {
   return (
     <Container id="notes" className="section text-start">
       <Row>
-        <h2>Notes</h2>
+        <h2>Documents</h2>
         <p>
           Below contains some documentation that I've made, which is probably
           only useful to me... but feel free to take a look!
@@ -36,7 +36,6 @@ const Notes: React.FC<Props> = (): ReactElement => {
       <Row>
         <Col sm={3}>
           <div className="note">
-            <h4>Documents</h4>
             <p>Select a document from the list below...</p>
             <NotesList setFileName={setFileName} fileName={fileName} />
           </div>

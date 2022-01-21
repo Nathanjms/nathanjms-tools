@@ -25,7 +25,7 @@ export const App: React.FC<AppProps> = (): ReactElement => {
             element={<Default component={<ColumnToCsv />} />}
           />
          <Route
-            path="/notes"
+            path="/documents"
             element={<Default component={<Notes />} />}
           />
           <Route
