@@ -13,6 +13,7 @@ const Notes: React.FC<Props> = (): ReactElement => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
     setIsLoading(true);
+    setDocument("");
     import(`../../../data/docs/${fileName}.md`)
       .then((markDown) => {
         fetch(markDown.default)
