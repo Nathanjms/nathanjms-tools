@@ -28,6 +28,12 @@ const Notes: React.FC<Props> = (): ReactElement => {
       .finally(() => {
         setIsLoading(false);
       });
+  useEffect(() => {
+    if (!fileName) {
+      return setDocument(
+        "*Select a document for it's content to appear here.*"
+      );
+    }
   }, [fileName]);
 
   return (
