@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import NotesList from "./NotesList";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -10,7 +10,9 @@ interface Props {}
 const Notes: React.FC<Props> = (): ReactElement => {
   const [fileName, setFileName] = useState<string>("");
   const [document, setDocument] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
+    setIsLoading(true);
     import(`../../../data/docs/${fileName}.md`)
       .then((markDown) => {
         fetch(markDown.default)
@@ -21,6 +23,9 @@ const Notes: React.FC<Props> = (): ReactElement => {
       })
       .catch((error) => {
         setDocument("*Select a document for it's content to appear here.*");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [fileName]);
 
@@ -42,6 +47,11 @@ const Notes: React.FC<Props> = (): ReactElement => {
         </Col>
         <Col sm={9}>
           <div className="note">
+            {isLoading && (
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            )}
             <ReactMarkdown
               children={document}
               components={{
