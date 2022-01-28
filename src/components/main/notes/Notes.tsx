@@ -47,31 +47,32 @@ const Notes: React.FC<Props> = (): ReactElement => {
         </Col>
         <Col sm={9}>
           <div className="note">
-            {isLoading && (
+            {isLoading ? (
               <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
+            ) : (
+              <ReactMarkdown
+                children={document}
+                components={{
+                  code({ node, inline, className, children, ...props }) {
+                    const match = /language-(\w+)/.exec(className || "");
+                    return !inline && match ? (
+                      <SyntaxHighlighter
+                        children={String(children).replace(/\n$/, "")}
+                        style={atomDark}
+                        language={match[1]}
+                        {...props}
+                      />
+                    ) : (
+                      <code className={className} {...props}>
+                        {children}
+                      </code>
+                    );
+                  },
+                }}
+              />
             )}
-            <ReactMarkdown
-              children={document}
-              components={{
-                code({ node, inline, className, children, ...props }) {
-                  const match = /language-(\w+)/.exec(className || "");
-                  return !inline && match ? (
-                    <SyntaxHighlighter
-                      children={String(children).replace(/\n$/, "")}
-                      style={atomDark}
-                      language={match[1]}
-                      {...props}
-                    />
-                  ) : (
-                    <code className={className} {...props}>
-                      {children}
-                    </code>
-                  );
-                },
-              }}
-            />
           </div>
         </Col>
       </Row>
