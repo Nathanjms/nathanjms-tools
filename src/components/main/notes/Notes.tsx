@@ -11,8 +11,13 @@ const Notes: React.FC<Props> = (): ReactElement => {
   const [fileName, setFileName] = useState<string>("");
   const [document, setDocument] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const importAndSetDocument = async (fileName: string): Promise<void> => {
+  
+  useEffect(() => {
+    if (!fileName) {
+      return setDocument(
+        "*Select a document for it's content to appear here.*"
+      );
+    }
     setIsLoading(true);
     import(`../../../data/docs/${fileName}.md`)
       .then(async (markDown) => {
@@ -21,25 +26,16 @@ const Notes: React.FC<Props> = (): ReactElement => {
           .then((text) => {
             setDocument(text);
           })
-          .catch((err) => {
+          .catch((err: Error) => {
             setDocument("Error Occurred: " + err.message);
           });
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         setDocument("Error Occurred: " + err.message);
       })
       .finally(() => {
         setIsLoading(false);
       });
-  };
-
-  useEffect(() => {
-    if (!fileName) {
-      return setDocument(
-        "*Select a document for it's content to appear here.*"
-      );
-    }
-    importAndSetDocument(fileName);
   }, [fileName]);
 
   return (
