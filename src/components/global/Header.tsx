@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import headerItems from "../../data/headerItems.json";
+import { LinkContainer } from "react-router-bootstrap";
 
 export default function Header() {
   const { pathname } = useLocation();
@@ -22,13 +23,14 @@ export default function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             {headerItems.map((element) => (
+              <LinkContainer to={element.link}>
                 <Nav.Link
                   key={element.id}
                   active={isTabActive(element.tabName, element.homePage)}
-                  href={element.link}
                 >
-                {element.name}
+                  {element.name}
                 </Nav.Link>
+              </LinkContainer>
             ))}
           </Nav>
           <Nav>
