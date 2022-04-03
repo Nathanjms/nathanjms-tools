@@ -56,6 +56,9 @@ const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
     if (newDate) setDate(newDate); // Set new date if date is valid.
   };
 
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) =>
+    event.target.select();
+
   return (
     <Form id="dateToUnixForm" onSubmit={handleUpdateUnixSubmit}>
       <Row>
@@ -72,6 +75,7 @@ const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
             placeholder="DD"
             value={inputValues?.date || ""}
             onChange={handleOnChange}
+            onFocus={handleFocus}
           />
         </Col>
         <Col xs={6} lg={4}>
@@ -87,6 +91,7 @@ const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
             placeholder="MM"
             value={inputValues?.month || ""}
             onChange={handleOnChange}
+            onFocus={handleFocus}
           />
         </Col>
         <Col xs={6} lg={4}>
@@ -102,6 +107,7 @@ const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
             required={true}
             value={inputValues?.year || ""}
             onChange={handleOnChange}
+            onFocus={handleFocus}
           />
         </Col>
         <Col xs={6} lg={4}>
@@ -117,6 +123,7 @@ const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
             placeholder="HH"
             value={inputValues?.hours || ""}
             onChange={handleOnChange}
+            onFocus={handleFocus}
           />
         </Col>
         <Col xs={6} lg={4}>
@@ -132,6 +139,7 @@ const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
             placeholder="MM"
             value={inputValues?.minutes || ""}
             onChange={handleOnChange}
+            onFocus={handleFocus}
           />
         </Col>
         <Col xs={6} lg={4}>
@@ -147,6 +155,7 @@ const DateToUnix: React.FC<Props> = ({ date, setDate }) => {
             placeholder="SS"
             value={inputValues?.seconds || ""}
             onChange={handleOnChange}
+            onFocus={handleFocus}
           />
         </Col>
         <Col xs={12}>
