@@ -179,9 +179,9 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
             </InputGroup>
           </Col>
           {hasExceeded32BitLimit && (
-            <Col>
-              <Alert variant="warning">
-                Warning: Date has exceeded 32 Bit memory limit.
+            <Col xs={12}>
+              <Alert variant="info">
+                Note: Date has exceeded 32 Bit memory limit.
               </Alert>
             </Col>
           )}
@@ -193,28 +193,6 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
               <p>{date.toString()}</p>
             </div>
           </Col>
-          <Col sm={6} className="my-2">
-            <div className="grey-card h-100">
-              <h4>SQL Timestamp to Unix</h4>
-              <p>Input date of the form YYYY-MM-DD HH:MM:SS</p>
-              <Form className="mb-3" onSubmit={handleSqlDateChange}>
-                <input
-                  id="unixTimeInput"
-                  type="text"
-                  className="form-control"
-                  defaultValue={sqlDate}
-                  onChange={(e) => {
-                    setSqlDate(e.target.value);
-                  }}
-                />
-                <Button className="w-100 mt-3" type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          </Col>
-        </Row>
-        <Row>
           <Col sm={6} className="my-2">
             <div className="grey-card h-100">
               <h4>I want to...</h4>
@@ -255,6 +233,28 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
                   quantityToAdd={quantityToAdd}
                 />
               </Row>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={6} className="my-2">
+            <div className="grey-card h-100">
+              <h4>SQL Timestamp to Unix</h4>
+              <p>Input date of the form YYYY-MM-DD HH:MM:SS</p>
+              <Form className="mb-3" onSubmit={handleSqlDateChange}>
+                <input
+                  id="unixTimeInput"
+                  type="text"
+                  className="form-control"
+                  defaultValue={sqlDate}
+                  onChange={(e) => {
+                    setSqlDate(e.target.value);
+                  }}
+                />
+                <Button className="w-100 mt-3" type="submit">
+                  Convert
+                </Button>
+              </Form>
             </div>
           </Col>
           <Col sm={6} className="my-2">
