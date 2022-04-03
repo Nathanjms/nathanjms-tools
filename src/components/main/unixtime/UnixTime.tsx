@@ -203,7 +203,7 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
             <div className="grey-card h-100">
               <h4>I want to...</h4>
               <Row className="mb-3">
-                <Col xs={6}>
+                <Col xs={8}>
                   <ToggleButtonGroup
                     className="w-100"
                     size="sm"
@@ -227,7 +227,7 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
                     </ToggleButton>
                   </ToggleButtonGroup>
                 </Col>
-                <Col xs={6}>
+                <Col xs={4}>
                   <Form.Select
                     onChange={(e) => handleQuantityChange(e)}
                     size="sm"
