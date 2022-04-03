@@ -207,7 +207,7 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
                     setSqlDate(e.target.value);
                   }}
                 />
-                <Button className="w-100" type="submit">
+                <Button className="w-100 mt-3" type="submit">
                   Submit
                 </Button>
               </Form>
