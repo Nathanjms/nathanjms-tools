@@ -13,11 +13,13 @@ import { FaCopy } from "react-icons/fa";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import AddSubBtnsForm from "./AddSubBtnsForm";
 import DateToUnix from "./DateToUnix";
+import { set } from "date-fns";
 
 interface UnixTimeProps {}
 
 const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
   const [date, setDate] = useState<Date>(new Date());
+  const [sqlDate, setSqlDate] = useState<string>("");
   const [unixTime, setUnixTime] = useState<number>(0);
   const [addTime, setAddTime] = useState<boolean>(false); // True to add, false to subtract
   const [quantityToAdd, setQuantityToAdd] = useState<number>(1);
@@ -26,6 +28,7 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
 
   useEffect((): void => {
     setUnixTime(Math.floor(Number(date) / 1000));
+    setSqlDate(formatToSqlDate(date));
   }, [date]);
 
   useEffect((): void => {
@@ -103,6 +106,49 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
     setTimeout(() => {
       btn.disabled = false;
     }, 3000);
+  };
+
+  const formatToSqlDate = (date: Date) => {
+    return (
+      date.getFullYear().toString().padStart(4, "0") +
+      "-" +
+      (date.getMonth() + 1).toString().padStart(2, "0") +
+      "-" +
+      date.getDate().toString().padStart(2, "0") +
+      " " +
+      date.getHours().toString().padStart(2, "0") +
+      ":" +
+      date.getMinutes().toString().padStart(2, "0") +
+      ":" +
+      date.getSeconds().toString().padStart(2, "0")
+    );
+  };
+
+  const handleSqlDateChange = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let tempSqlDate = sqlDate.trim();
+    console.log(validSqlDate.test(tempSqlDate));
+    
+    var newDate: Date | null = null;
+    // newDate = set(date, {
+    //   date: Number(inputValues.date),
+    //   month: Number(inputValues.month) - 1,
+    //   year: Number(inputValues.year),
+    //   hours: Number(inputValues.hours),
+    //   minutes: Number(inputValues.minutes),
+    //   seconds: Number(inputValues.seconds),
+    // });
+
+    // if (isNaN(newDate.getTime())) {
+    //   // Handle Invalid Date.
+    //   SwalErrorNaNMessage("Error with the input date! Reloading...");
+    //   return;
+    // }
+
+    // if (newDate) setDate(newDate); // Set new date if date is valid.
+    if (tempSqlDate !== sqlDate) {
+      setSqlDate(tempSqlDate);
+    }
   };
 
   return (
