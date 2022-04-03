@@ -243,7 +243,12 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
                 </Col>
               </Row>
               <Row className="justify-content-center add-sub-btns-container">
-                <AddSubBtnsForm addTime={addTime} date={date} setDate={setDate} quantityToAdd={quantityToAdd}/>
+                <AddSubBtnsForm
+                  addTime={addTime}
+                  date={date}
+                  setDate={setDate}
+                  quantityToAdd={quantityToAdd}
+                />
               </Row>
             </div>
           </Col>
