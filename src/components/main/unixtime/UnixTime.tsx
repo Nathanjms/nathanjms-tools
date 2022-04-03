@@ -136,19 +136,24 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
       });
       return;
     }
-    //   seconds: Number(inputValues.seconds),
-    // });
 
-    // if (isNaN(newDate.getTime())) {
-    //   // Handle Invalid Date.
-    //   SwalErrorNaNMessage("Error with the input date! Reloading...");
-    //   return;
-    // }
+    var newDate: Date | null = null;
+    newDate = set(date, {
+      year: Number(tempSqlDate.slice(0, 4)),
+      month: Number(tempSqlDate.slice(5, 7)) - 1,
+      date: Number(tempSqlDate.slice(8, 10)),
+      hours: Number(tempSqlDate.slice(11, 13)),
+      minutes: Number(tempSqlDate.slice(14, 16)),
+      seconds: Number(tempSqlDate.slice(17, 19)),
+    });
 
-    // if (newDate) setDate(newDate); // Set new date if date is valid.
-    if (tempSqlDate !== sqlDate) {
-      setSqlDate(tempSqlDate);
+    if (isNaN(newDate.getTime())) {
+      // Handle Invalid Date.
+      SwalErrorNaNMessage("Error when converting the input date! Reloading...");
+      return;
     }
+
+    if (newDate) setDate(newDate); // Set new date if date is valid.
   };
 
   return (
@@ -190,7 +195,7 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
           </Col>
           <Col sm={6} className="my-2">
             <div className="grey-card h-100">
-              <h4>SQL to Unix</h4>
+              <h4>SQL Timestamp to Unix</h4>
               <p>Input date of the form YYYY-MM-DD HH:MM:SS</p>
               <Form className="mb-3" onSubmit={handleSqlDateChange}>
                 <input
