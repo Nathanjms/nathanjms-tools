@@ -23,7 +23,9 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
   const [date, setDate] = useState<Date>(new Date());
   const [sqlDate, setSqlDate] = useState<string>("");
   const [unixTime, setUnixTime] = useState<number>(0);
-  const [addTime, setAddTime] = useState<boolean>(false); // True to add, false to subtract
+  const [timeOperator, setTimeOperator] = useState<"add" | "subtract">(
+    "subtract"
+  );
   const [quantityToAdd, setQuantityToAdd] = useState<number>(1);
   const [hasExceeded32BitLimit, setHasExceeded32BitLimit] =
     useState<boolean>(false);
@@ -86,7 +88,7 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
   };
 
   const getAddSubtractWording = (): string => {
-    return addTime ? "Add" : "Subtract";
+    return timeOperator.charAt(0).toUpperCase() + timeOperator.slice(1);
   };
 
   const handleCopyToClipboard = (
@@ -241,7 +243,7 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
               </Row>
               <Row className="justify-content-center add-sub-btns-container">
                 <AddSubBtnsForm
-                  addTime={addTime}
+                  addTime={timeOperator === "add"}
                   date={date}
                   setDate={setDate}
                   quantityToAdd={quantityToAdd}
