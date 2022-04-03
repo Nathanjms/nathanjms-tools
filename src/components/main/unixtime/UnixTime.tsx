@@ -134,12 +134,32 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
               </Alert>
             </Col>
           )}
-          <Col xs={12} className="my-2">
+          <Col sm={6} className="my-2">
             <div className="grey-card">
               <h5>UK Date:</h5>
               <p>{date.toLocaleString("en-GB")}</p>
               <h5>Long Date:</h5>
               <p>{date.toString()}</p>
+            </div>
+          </Col>
+          <Col sm={6} className="my-2">
+            <div className="grey-card h-100">
+              <h4>SQL to Unix</h4>
+              <p>Input date of the form YYYY-MM-DD HH:MM:SS</p>
+              <Form className="mb-3" onSubmit={handleSqlDateChange}>
+                <input
+                  id="unixTimeInput"
+                  type="text"
+                  className="form-control"
+                  defaultValue={sqlDate}
+                  onChange={(e) => {
+                    setSqlDate(e.target.value);
+                  }}
+                />
+                <Button className="w-100" type="submit">
+                  Submit
+                </Button>
+              </Form>
             </div>
           </Col>
         </Row>
