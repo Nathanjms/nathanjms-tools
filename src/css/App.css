@@ -160,6 +160,7 @@ body {
   background-color: var(--greyBackground);
   border-radius: 5px;
   margin-inline: auto;
+  height: 100%;
 }
 
 .list-group-item.active {

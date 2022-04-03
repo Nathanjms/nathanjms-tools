@@ -13,11 +13,13 @@ import { FaCopy } from "react-icons/fa";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import AddSubBtnsForm from "./AddSubBtnsForm";
 import DateToUnix from "./DateToUnix";
+import { set } from "date-fns";
 
 interface UnixTimeProps {}
 
 const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
   const [date, setDate] = useState<Date>(new Date());
+  const [sqlDate, setSqlDate] = useState<string>("");
   const [unixTime, setUnixTime] = useState<number>(0);
   const [addTime, setAddTime] = useState<boolean>(false); // True to add, false to subtract
   const [quantityToAdd, setQuantityToAdd] = useState<number>(1);
@@ -26,6 +28,7 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
 
   useEffect((): void => {
     setUnixTime(Math.floor(Number(date) / 1000));
+    setSqlDate(formatToSqlDate(date));
   }, [date]);
 
   useEffect((): void => {
@@ -105,6 +108,54 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
     }, 3000);
   };
 
+  const formatToSqlDate = (date: Date) => {
+    return (
+      date.getFullYear().toString().padStart(4, "0") +
+      "-" +
+      (date.getMonth() + 1).toString().padStart(2, "0") +
+      "-" +
+      date.getDate().toString().padStart(2, "0") +
+      " " +
+      date.getHours().toString().padStart(2, "0") +
+      ":" +
+      date.getMinutes().toString().padStart(2, "0") +
+      ":" +
+      date.getSeconds().toString().padStart(2, "0")
+    );
+  };
+
+  const handleSqlDateChange = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let tempSqlDate = sqlDate.trim().slice(0, 19); // Allow (but ignore) timezone input (postgreSQL) with the slice method.
+    if (!validSqlDate.test(tempSqlDate)) {
+      toast.error("Invalid SQL date format detected!", {
+        style: {
+          background: "#363636",
+          color: "#fff",
+        },
+      });
+      return;
+    }
+
+    var newDate: Date | null = null;
+    newDate = set(date, {
+      year: Number(tempSqlDate.slice(0, 4)),
+      month: Number(tempSqlDate.slice(5, 7)) - 1,
+      date: Number(tempSqlDate.slice(8, 10)),
+      hours: Number(tempSqlDate.slice(11, 13)),
+      minutes: Number(tempSqlDate.slice(14, 16)),
+      seconds: Number(tempSqlDate.slice(17, 19)),
+    });
+
+    if (isNaN(newDate.getTime())) {
+      // Handle Invalid Date.
+      SwalErrorNaNMessage("Error when converting the input date! Reloading...");
+      return;
+    }
+
+    if (newDate) setDate(newDate); // Set new date if date is valid.
+  };
+
   return (
     <React.Fragment>
       <Toaster position="top-right" />
@@ -128,13 +179,13 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
             </InputGroup>
           </Col>
           {hasExceeded32BitLimit && (
-            <Col>
-              <Alert variant="warning">
-                Warning: Date has exceeded 32 Bit memory limit.
+            <Col xs={12}>
+              <Alert variant="info">
+                Note: Date has exceeded 32 Bit memory limit.
               </Alert>
             </Col>
           )}
-          <Col xs={12} className="my-2">
+          <Col sm={6} className="my-2">
             <div className="grey-card">
               <h5>UK Date:</h5>
               <p>{date.toLocaleString("en-GB")}</p>
@@ -142,8 +193,6 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
               <p>{date.toString()}</p>
             </div>
           </Col>
-        </Row>
-        <Row>
           <Col sm={6} className="my-2">
             <div className="grey-card h-100">
               <h4>I want to...</h4>
@@ -177,8 +226,35 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
                 </Col>
               </Row>
               <Row className="justify-content-center add-sub-btns-container">
-                <AddSubBtnsForm addTime={addTime} date={date} setDate={setDate} quantityToAdd={quantityToAdd}/>
+                <AddSubBtnsForm
+                  addTime={addTime}
+                  date={date}
+                  setDate={setDate}
+                  quantityToAdd={quantityToAdd}
+                />
               </Row>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={6} className="my-2">
+            <div className="grey-card h-100">
+              <h4>SQL Timestamp to Unix</h4>
+              <p>Input date of the form YYYY-MM-DD HH:MM:SS</p>
+              <Form className="mb-3" onSubmit={handleSqlDateChange}>
+                <input
+                  id="unixTimeInput"
+                  type="text"
+                  className="form-control"
+                  defaultValue={sqlDate}
+                  onChange={(e) => {
+                    setSqlDate(e.target.value);
+                  }}
+                />
+                <Button className="w-100 mt-3" type="submit">
+                  Convert
+                </Button>
+              </Form>
             </div>
           </Col>
           <Col sm={6} className="my-2">
@@ -205,5 +281,8 @@ export const SwalErrorNaNMessage = (errMessage: string = "Error"): void => {
     window.location.reload();
   });
 };
+
+const validSqlDate =
+  /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$/;
 
 export default UnixTime;
