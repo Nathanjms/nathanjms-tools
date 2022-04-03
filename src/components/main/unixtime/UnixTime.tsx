@@ -126,16 +126,16 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
 
   const handleSqlDateChange = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let tempSqlDate = sqlDate.trim();
-    console.log(validSqlDate.test(tempSqlDate));
-    
-    var newDate: Date | null = null;
-    // newDate = set(date, {
-    //   date: Number(inputValues.date),
-    //   month: Number(inputValues.month) - 1,
-    //   year: Number(inputValues.year),
-    //   hours: Number(inputValues.hours),
-    //   minutes: Number(inputValues.minutes),
+    let tempSqlDate = sqlDate.trim().slice(0, 19); // Allow (but ignore) timezone input (postgreSQL) with the slice method.
+    if (!validSqlDate.test(tempSqlDate)) {
+      toast.error("Invalid SQL date format detected!", {
+        style: {
+          background: "#363636",
+          color: "#fff",
+        },
+      });
+      return;
+    }
     //   seconds: Number(inputValues.seconds),
     // });
 
