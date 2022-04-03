@@ -1,10 +1,12 @@
 :root {
-  --primary: rgb(123, 38, 173);
-  --primaryLight: rgb(150, 98, 181);
-  --teal: #269bad;
-  --teal2: #34bdd2;
-  --darkBackground: #282c34;
-  --greyBackground: #3d4148;
+  --primary: #7b26ad;
+  --primary2: #bb79e2;
+  --teal: #74a4bc;
+  --teal2: #5089a5;
+  --green: #09814a;
+  --red: #ad2831;
+  --dark: #272727;
+  --dark2: #333333;
 }
 
 ::selection {
@@ -26,8 +28,18 @@
 .btn-primary:active,
 .btn-primary:focus,
 .btn-primary:disabled {
-  background-color: var(--primaryLight);
-  border: 1px solid var(--primaryLight);
+  background-color: var(--primary2);
+  border: 1px solid var(--primary2);
+}
+
+.btn-check:active + .btn-primary,
+.btn-check:checked + .btn-primary,
+.btn-primary.active,
+.btn-primary:active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: var(--teal2);
+  border-color: var(--teal2);
 }
 
 a {
@@ -60,7 +72,7 @@ a:hover {
 }
 
 body {
-  background-color: var(--darkBackground);
+  background-color: var(--dark);
   min-height: 50vh;
   color: #f9f9f9;
   text-align: center;
@@ -88,7 +100,7 @@ body {
 --------------------------------------------------------------*/
 
 #footer {
-  background-color: var(--greyBackground);
+  background-color: var(--dark2);
   min-height: 20vh;
   padding-top: 30px;
   padding-bottom: 20px;
@@ -97,7 +109,7 @@ body {
 
 .footerLogos {
   color: #f2f3f5 !important;
-  background: var(--darkBackground);
+  background: var(--dark);
   padding: 6px 8px;
   margin-right: 8px;
   font-size: 12px;
@@ -109,7 +121,7 @@ body {
 }
 
 .footerLogos:hover > svg {
-  color: var(--greyBackground) !important;
+  color: var(--dark2) !important;
 }
 
 .footerList li {
@@ -121,8 +133,8 @@ body {
 --------------------------------------------------------------*/
 
 .bg-grey {
-  border-bottom: 1px solid var(--darkBackground);
-  background-color: var(--greyBackground) !important;
+  border-bottom: 1px solid var(--dark);
+  background-color: var(--dark2) !important;
 }
 
 .nav-item {
@@ -144,7 +156,7 @@ body {
 
 .add-sub-btns-container {
   padding: 10px;
-  background-color: var(--darkBackground);
+  background-color: var(--dark);
   margin-inline: auto;
   border-radius: 5px;
 }
@@ -157,7 +169,7 @@ body {
 
 .grey-card {
   padding: 20px;
-  background-color: var(--greyBackground);
+  background-color: var(--dark2);
   border-radius: 5px;
   margin-inline: auto;
   height: 100%;
