@@ -7,6 +7,8 @@ import {
   InputGroup,
   Container,
   Alert,
+  ToggleButtonGroup,
+  ToggleButton,
 } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 import { FaCopy } from "react-icons/fa";
@@ -198,16 +200,28 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
               <h4>I want to...</h4>
               <Row className="mb-3">
                 <Col xs={6}>
-                  <Button
-                    variant="primary"
+                  <ToggleButtonGroup
+                    className="w-100"
                     size="sm"
-                    onClick={() => {
-                      setAddTime(!addTime);
-                    }}
-                    style={{ minWidth: "100%", wordWrap: "break-word" }}
+                    name="orderBy"
+                    onChange={(value) => setTimeOperator(value)}
+                    defaultValue={timeOperator}
                   >
-                    {getAddSubtractWording()}
-                  </Button>
+                    <ToggleButton
+                      id="radioBtnAsc"
+                      value="add"
+                      disabled={timeOperator === "add"}
+                    >
+                      Add
+                    </ToggleButton>
+                    <ToggleButton
+                      id="radioBtnDesc"
+                      value="subtract"
+                      disabled={timeOperator === "subtract"}
+                    >
+                      Subtract
+                    </ToggleButton>
+                  </ToggleButtonGroup>
                 </Col>
                 <Col xs={6}>
                   <Form.Select
