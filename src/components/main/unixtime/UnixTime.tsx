@@ -92,13 +92,12 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
   };
 
   const handleCopyToClipboard = (
-    e: React.MouseEvent<HTMLButtonElement>
+    e: React.MouseEvent<HTMLButtonElement>,
+    copyVal: string
   ): void => {
-    let btn = e.currentTarget as HTMLButtonElement;
-    let copyText = document.getElementById("unixTimeInput") as HTMLInputElement;
-
+    let btn = e.currentTarget;
     btn.disabled = true;
-    navigator.clipboard.writeText(copyText.value);
+    navigator.clipboard.writeText(copyVal);
 
     toast.success("Copied!", {
       style: {
@@ -177,7 +176,10 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
                 value={String(unixTime)}
                 onChange={handleCurrentTimestampChange}
               />
-              <Button id="copyToClipboard" onClick={handleCopyToClipboard}>
+              <Button
+                id="copyToClipboard"
+                onClick={(e) => handleCopyToClipboard(e, String(unixTime))}
+              >
                 <FaCopy />
               </Button>
             </InputGroup>
@@ -258,15 +260,20 @@ const UnixTime: React.FC<UnixTimeProps> = (): ReactElement => {
               <h4>SQL Timestamp to Unix</h4>
               <p>Input date of the form YYYY-MM-DD HH:MM:SS</p>
               <Form className="mb-3" onSubmit={handleSqlDateChange}>
-                <input
-                  id="unixTimeInput"
-                  type="text"
-                  className="form-control"
-                  defaultValue={sqlDate}
-                  onChange={(e) => {
-                    setSqlDate(e.target.value);
-                  }}
-                />
+                <InputGroup className="mb-3">
+                  <input
+                    id="sqlTimeInput"
+                    type="text"
+                    className="form-control"
+                    value={sqlDate}
+                    onChange={(e) => {
+                      setSqlDate(e.target.value);
+                    }}
+                  />
+                  <Button onClick={(e) => handleCopyToClipboard(e, sqlDate)}>
+                    <FaCopy />
+                  </Button>
+                </InputGroup>
                 <Button className="w-100 mt-3" type="submit">
                   Convert
                 </Button>
