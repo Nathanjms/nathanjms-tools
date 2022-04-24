@@ -33,13 +33,20 @@
   border: 1px solid var(--primary2);
 }
 
-.btn-check:active + .btn-primary,
-.btn-check:checked + .btn-primary,
-.show > .btn-primary.dropdown-toggle {
+.btn-group .btn-check:checked + .btn-primary.disabled {
   color: #fff;
-  background-color: var(--green);
-  border-color: var(--green);
-  font-weight: 600;
+  background-color: var(--primary);
+  border-color: var(--primary);
+  font-weight: bold;
+  cursor: not-allowed;
+  opacity: 1; /* Override disabled opacity */
+}
+
+.btn-group .btn-check:not(:checked) + .btn-primary {
+  color: #fff;
+  background-color: var(--primary2);
+  border-color: var(--primary2);
+  opacity: 0.65;
 }
 
 a {
