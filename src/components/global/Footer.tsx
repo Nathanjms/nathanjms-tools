@@ -38,7 +38,7 @@ function Footer() {
                   <a href="https://www.nathanjms.co.uk">Go To Main Site</a>
                 </li>
                 <li>
-                  <a href="https://movies.nathanjms.co.uk">Movies</a>
+                  <a href="https://gymnotes.uk">GymNotes</a>
                 </li>
                 <li>Last updated: 3rd April 2022</li>
               </ul>
